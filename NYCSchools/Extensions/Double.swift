@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension Double {
+    func toPercentageStr(decimalPlaces: Int) -> String {
+        return "\(String(format: "%.\(decimalPlaces)f", self * 100.0))%"
+    }
+}

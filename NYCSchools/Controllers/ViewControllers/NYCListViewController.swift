@@ -7,8 +7,15 @@
 
 import UIKit
 
-class NYCListViewController: UIViewController {
+class NYCListViewController: UIViewController, UISearchControllerDelegate {
     var vm: NYCListViewModel = NYCListViewModel()
+    
+    let searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: SearchResultsViewController())
+        controller.searchBar.placeholder = "Search..."
+        controller.searchBar.searchBarStyle = .minimal
+        return controller
+    }()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -28,15 +35,23 @@ class NYCListViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        tableView.frame = view.bounds
+        super.viewDidLayoutSubviews()
+        self.tableView.frame = view.bounds
     }
 }
 
 extension NYCListViewController {
     private func setupUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.searchController = self.searchController
+        navigationController?.navigationBar.tintColor = .white
+        searchController.searchResultsUpdater = self
+        if let searchResultVC = searchController.searchResultsController as? SearchResultsViewController {
+            searchResultVC.delegate = self
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
-        
         view.addSubview(tableView)
         
         vm.getNYCHighSchoolsCompletionHandler = { error in
@@ -48,6 +63,28 @@ extension NYCListViewController {
                 
             }
         }
+    }
+    
+    private func navigateToDetailsView(school: NYCHighSchool) {
+        Task {
+            let detailsVC = NYCHighSchoolDetailViewController()
+            if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
+                DispatchQueue.main.async {
+                    detailsVC.configure(school: school, scoreData: scoreData)
+                    self.navigationController?.pushViewController(detailsVC, animated: true)
+                }
+            } else {
+                let alert = UIAlertController(title: "Error Fetching School Data", message: NetworkError.unknownError.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+}
+
+extension NYCListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
     }
 }
 
@@ -81,18 +118,23 @@ extension NYCListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            let school = self.vm.nycHighSchools[indexPath.row]
-            
-            
-            print(school)
-            
-            let detailsVC = NYCHighSchoolDetailViewController()
-            detailsVC.setSchool(school: school)
-            
-            print(detailsVC)
-            
-            self.navigationController?.pushViewController(detailsVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        navigateToDetailsView(school: self.vm.nycHighSchools[indexPath.row])
+    }
+}
+
+extension NYCListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let vc = searchController.searchResultsController as? SearchResultsViewController {
+            if let searchText = searchController.searchBar.text {
+                vc.vm.searchNYCHighSchools(searchText: searchText)
+            }
         }
+    }
+}
+
+extension NYCListViewController: SearchResultsViewControllerDelegate {
+    func searchResultsViewControllerDidTapItem(school: NYCHighSchool) {
+        navigateToDetailsView(school: school)
     }
 }
