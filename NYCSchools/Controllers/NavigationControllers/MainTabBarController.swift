@@ -1,19 +1,17 @@
 //
-//  ViewController.swift
+//  MainTabBarController.swift
 //  NYCSchools
 //
-//  Created by Suguru Tokuda on 11/10/23.
+//  Created by Suguru Tokuda on 11/14/23.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
-
-
 }
-
