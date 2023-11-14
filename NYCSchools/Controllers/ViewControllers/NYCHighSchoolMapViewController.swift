@@ -34,7 +34,7 @@ class NYCHighSchoolMapViewController: UIViewController {
 extension NYCHighSchoolMapViewController {
     private func presentDetailsView(school: NYCHighSchool) {
         Task {
-            let detailsVC = NYCHighSchoolDetailViewController()
+            let detailsVC = NYCHighSchoolDetailViewController(isSheet: true)
             if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
                 DispatchQueue.main.async {
                     detailsVC.configure(school: school, scoreData: scoreData, showMapView: false)

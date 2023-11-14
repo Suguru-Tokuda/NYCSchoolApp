@@ -10,6 +10,7 @@ import MapKit
 
 class NYCHighSchoolDetailViewController: UIViewController {
     var vm: NYCHighSchoolDetailViewModel = NYCHighSchoolDetailViewModel()
+    var isSheet: Bool = false
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -24,19 +25,33 @@ class NYCHighSchoolDetailViewController: UIViewController {
         return view
     }()
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(isSheet: Bool) {
+        super.init(nibName: nil, bundle: nil)
+        self.isSheet = isSheet
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        if let presentationController = presentationController as? UISheetPresentationController {
-            presentationController.detents = [
-                .medium()
-            ]
-            setupUIForSheetView()
+        if isSheet {
+            if let presentationController = presentationController as? UISheetPresentationController {
+                presentationController.detents = [
+                    .medium()
+                ]
+                setupUIForSheetView()
+            }
         } else {
             self.setupUI()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

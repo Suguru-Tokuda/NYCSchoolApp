@@ -48,6 +48,27 @@ extension NYCHighSchoolScoreView {
         stackView.addArrangedSubview(scoreText)
         stackView.addArrangedSubview(scoreLabel)
         self.addSubview(stackView)
+        
+        applyConstraints()        
+    }
+    
+    private func applyConstraints() {
+        let stackViewConstraints = [
+            stackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+        ]
+        
+        let scoreTextConstraints = [
+            scoreText.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            scoreText.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+        ]
+        
+        let scoreLabelConstraints = [
+            scoreLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(stackViewConstraints + scoreTextConstraints + scoreLabelConstraints)
     }
     
     func configure(score: Int, labelText: String) {
