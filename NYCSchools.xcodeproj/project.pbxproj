@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50BC0BC0531779DDC6043A2 /* Pods_NYCSchools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461063FC90371C5E65A2D88B /* Pods_NYCSchools.framework */; };
 		BB3B218F2B02612800A4B0D9 /* NYCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3B218E2B02612800A4B0D9 /* NYCTableViewCell.swift */; };
 		BB3B21B52B0285F000A4B0D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3B21B42B0285F000A4B0D9 /* Double.swift */; };
 		BB3B21B72B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3B21B62B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		199261188FB037C303C65B99 /* Pods-NYCSchools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCSchools.release.xcconfig"; path = "Target Support Files/Pods-NYCSchools/Pods-NYCSchools.release.xcconfig"; sourceTree = "<group>"; };
+		461063FC90371C5E65A2D88B /* Pods_NYCSchools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NYCSchools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3B218E2B02612800A4B0D9 /* NYCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCTableViewCell.swift; sourceTree = "<group>"; };
 		BB3B21B42B0285F000A4B0D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		BB3B21B62B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolDetailViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBulletPointsView.swift; sourceTree = "<group>"; };
 		BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolStatsView.swift; sourceTree = "<group>"; };
 		BBA699AE2B0530B700BA92A4 /* HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursView.swift; sourceTree = "<group>"; };
+		F80BC74B9FB4FAFF82F037F5 /* Pods-NYCSchools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYCSchools.debug.xcconfig"; path = "Target Support Files/Pods-NYCSchools/Pods-NYCSchools.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,12 +79,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A50BC0BC0531779DDC6043A2 /* Pods_NYCSchools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		328505B601C9480C23199296 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F80BC74B9FB4FAFF82F037F5 /* Pods-NYCSchools.debug.xcconfig */,
+				199261188FB037C303C65B99 /* Pods-NYCSchools.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		87BB7F5FA027485197519871 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				461063FC90371C5E65A2D88B /* Pods_NYCSchools.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BB3B218C2B02609900A4B0D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +157,8 @@
 			children = (
 				BB5834682AFEBDDA005014C9 /* NYCSchools */,
 				BB5834672AFEBDDA005014C9 /* Products */,
+				328505B601C9480C23199296 /* Pods */,
+				87BB7F5FA027485197519871 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,9 +268,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB58347A2AFEBDDB005014C9 /* Build configuration list for PBXNativeTarget "NYCSchools" */;
 			buildPhases = (
+				152F43E7A8DC0DF21B0A0D53 /* [CP] Check Pods Manifest.lock */,
 				BB5834622AFEBDDA005014C9 /* Sources */,
 				BB5834632AFEBDDA005014C9 /* Frameworks */,
 				BB5834642AFEBDDA005014C9 /* Resources */,
+				744D86E2D29ED518F936C5D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -301,6 +327,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		152F43E7A8DC0DF21B0A0D53 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NYCSchools-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		744D86E2D29ED518F936C5D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NYCSchools/Pods-NYCSchools-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NYCSchools/Pods-NYCSchools-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NYCSchools/Pods-NYCSchools-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB5834622AFEBDDA005014C9 /* Sources */ = {
@@ -387,7 +455,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -450,7 +518,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -471,6 +539,7 @@
 		};
 		BB58347B2AFEBDDB005014C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F80BC74B9FB4FAFF82F037F5 /* Pods-NYCSchools.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -497,6 +566,7 @@
 		};
 		BB58347C2AFEBDDB005014C9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 199261188FB037C303C65B99 /* Pods-NYCSchools.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol NetworkProtocol {
     func getData<T: Decodable>(urlStr: String, type: T.Type) async throws -> T
@@ -13,25 +14,21 @@ protocol NetworkProtocol {
 
 class NetworkManager: NetworkProtocol {
     func getData<T>(urlStr: String, type: T.Type) async throws -> T where T : Decodable {
-        guard let url = URL(string: urlStr) else { throw NetworkError.badUrlError }
-        var rawData: Data
-
-        do {
-            let (gotData, res) = try await URLSession.shared.data(for: URLRequest(url: url))
-            rawData = gotData
-            
-            if let response = res as? HTTPURLResponse,
-                   response.statusCode == 500 {
-                throw NetworkError.serverError
-            }
-        } catch {
-            throw NetworkError.unknownError
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(urlStr)
+                .responseData { res in
+                    switch res.result {
+                    case .success(let data):
+                        do {
+                            let processedData = try JSONDecoder().decode(type.self, from: data)
+                            continuation.resume(returning: processedData)
+                        } catch {
+                            continuation.resume(throwing: NetworkError.dataParsingError)
+                        }
+                    case .failure(_):
+                        continuation.resume(throwing: NetworkError.serverError)
+                    }
+                }
         }
-        
-        do {
-            return try JSONDecoder().decode(type.self, from: rawData)
-        } catch {
-            throw NetworkError.dataParsingError
-        }        
     }
 }
