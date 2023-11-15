@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolScoreView.swift
+//  NYCSchoolScoreView.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/14/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NYCHighSchoolScoreView: UIView {   
+class NYCSchoolScoreView: UIView {   
     private let scoreText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -38,7 +38,7 @@ class NYCHighSchoolScoreView: UIView {
     
 }
 
-extension NYCHighSchoolScoreView {
+extension NYCSchoolScoreView {
     private func setupUI() {
         addSubview(scoreText)
         addSubview(scoreLabel)

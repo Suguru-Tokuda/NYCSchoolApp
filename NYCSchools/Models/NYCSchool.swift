@@ -1,5 +1,5 @@
 //
-//  NYCHighSchool.swift
+//  NYCSchool.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/10/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NYCHighSchool: Decodable, Identifiable {
+struct NYCSchool: Decodable, Identifiable {
     let id,
         schoolName,
         boro,
@@ -108,7 +108,7 @@ struct NYCHighSchool: Decodable, Identifiable {
         self.longitude = Double(try container.decodeIfPresent(String.self, forKey: .longitude) ?? "0") ?? 0.0
         
         // MARK: internal functions to parse arrays
-        func parseDynamicArray(container: KeyedDecodingContainer<NYCHighSchool.DynamicCodignKeys>, propertyName: String) -> [String] {
+        func parseDynamicArray(container: KeyedDecodingContainer<NYCSchool.DynamicCodignKeys>, propertyName: String) -> [String] {
             var res = [String]()
             
             var parseFailed = false
@@ -135,7 +135,7 @@ struct NYCHighSchool: Decodable, Identifiable {
         }
         
         // parse dictionary
-        func parseDictionary(container: KeyedDecodingContainer<NYCHighSchool.DynamicCodignKeys>, propertyName: String, separator: String) -> [Int : [String]] {
+        func parseDictionary(container: KeyedDecodingContainer<NYCSchool.DynamicCodignKeys>, propertyName: String, separator: String) -> [Int : [String]] {
             var res: [Int : [String]] = [:]
             
             var parseFailed = false

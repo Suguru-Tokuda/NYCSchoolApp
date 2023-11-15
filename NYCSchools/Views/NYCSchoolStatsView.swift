@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolStatsView.swift
+//  NYCSchoolStatsView.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/15/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NYCHighSchoolStatsView: UIView {
+class NYCSchoolStatsView: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -26,26 +26,26 @@ class NYCHighSchoolStatsView: UIView {
     }
 }
 
-extension NYCHighSchoolStatsView {
+extension NYCSchoolStatsView {
     private func setupUI() {
         self.addSubview(stackView)
     }
     
-    func configure(school: NYCHighSchool) {
+    func configure(school: NYCSchool) {
         // remove subviews first
         stackView.subviews.forEach { stackView.removeArrangedSubview($0) }
         
-        let totalStudents = NYCHighSchoolScoreView()
-        let attendanceRate = NYCHighSchoolScoreView()
-        let graduationRate = NYCHighSchoolScoreView()
-        let collegeCareerRate = NYCHighSchoolScoreView()
+        let totalStudents = NYCSchoolScoreView()
+        let attendanceRate = NYCSchoolScoreView()
+        let graduationRate = NYCSchoolScoreView()
+        let collegeCareerRate = NYCSchoolScoreView()
         
         totalStudents.configure(scoreTextStr: String(school.totalStudents), labelText: "Total Students")
         attendanceRate.configure(scoreTextStr: school.attendanceRate.toPercentageStr(decimalPlaces: 0), labelText: "Attendance Rate")
         graduationRate.configure(scoreTextStr: school.graduationRate.toPercentageStr(decimalPlaces: 0), labelText: "Graduation Rate")
         collegeCareerRate.configure(scoreTextStr: school.collegeCareerRate.toPercentageStr(decimalPlaces: 0), labelText: "College Career Rate")
         
-        let subviews: [NYCHighSchoolScoreView] = [
+        let subviews: [NYCSchoolScoreView] = [
             totalStudents,
             attendanceRate,
             graduationRate,

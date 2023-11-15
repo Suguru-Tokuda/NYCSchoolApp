@@ -1,5 +1,5 @@
 //
-//  HighSchoolScorreData.swift
+//  NYCSchoolScorreData.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/13/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NYCHighSchoolScorreData: Decodable {
+struct NYCSchoolScorreData: Decodable {
     let id: String
     let schoolName: String
     let numOfSatTestTakers: Int

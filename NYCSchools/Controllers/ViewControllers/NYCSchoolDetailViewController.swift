@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolDetailViewController.swift
+//  NYCSSchoolDetailViewController.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/13/23.
@@ -8,8 +8,8 @@
 import UIKit
 import MapKit
 
-class NYCHighSchoolDetailViewController: UIViewController {
-    var vm: NYCHighSchoolDetailViewModel = NYCHighSchoolDetailViewModel()
+class NYCSchoolDetailViewController: UIViewController {
+    var vm: NYCSchoolDetailViewModel = NYCSchoolDetailViewModel()
     var isSheet: Bool = false
     var sheetDismissed: (() -> ())?
     
@@ -20,8 +20,8 @@ class NYCHighSchoolDetailViewController: UIViewController {
         return mapView
     }()
     
-    let detailsViewContainer: NYCHighSchoolDetailView = {
-        let view = NYCHighSchoolDetailView()
+    let detailsViewContainer: NYCSchoolDetailView = {
+        let view = NYCSchoolDetailView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -62,7 +62,7 @@ class NYCHighSchoolDetailViewController: UIViewController {
     }
 }
 
-extension NYCHighSchoolDetailViewController {
+extension NYCSchoolDetailViewController {
     private func setupUI() {
         vm.coordiateSetHandlder = { school in
             self.setAnnotation(school: school)
@@ -71,7 +71,7 @@ extension NYCHighSchoolDetailViewController {
         view.addSubview(mapView)
         view.addSubview(detailsViewContainer)
 
-        mapView.centerCoordinate = NYCHighSchoolDetailViewModel.initialCoordinate
+        mapView.centerCoordinate = NYCSchoolDetailViewModel.initialCoordinate
         applyConstraints()
     }
     
@@ -110,7 +110,7 @@ extension NYCHighSchoolDetailViewController {
         NSLayoutConstraint.activate(detailsViewConstraints)
     }
     
-    private func setAnnotation(school: NYCHighSchool) {
+    private func setAnnotation(school: NYCSchool) {
         DispatchQueue.main.async {
             self.mapView.removeAnnotations(self.mapView.annotations)
             let annotation = MKPointAnnotation()
@@ -122,8 +122,8 @@ extension NYCHighSchoolDetailViewController {
     }
 }
 
-extension NYCHighSchoolDetailViewController {
-    func configure(school: NYCHighSchool, scoreData: NYCHighSchoolScorreData, showMapView: Bool = true) {
+extension NYCSchoolDetailViewController {
+    func configure(school: NYCSchool, scoreData: NYCSchoolScorreData, showMapView: Bool = true) {
         DispatchQueue.main.async {
             self.vm.setSchool(school: school)
             self.setAnnotation(school: school)
@@ -132,7 +132,7 @@ extension NYCHighSchoolDetailViewController {
     }
 }
 
-extension NYCHighSchoolDetailViewController: UISheetPresentationControllerDelegate {
+extension NYCSchoolDetailViewController: UISheetPresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         self.sheetDismissed?()
     }

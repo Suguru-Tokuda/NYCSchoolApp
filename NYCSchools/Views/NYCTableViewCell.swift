@@ -148,9 +148,9 @@ extension NYCTableViewCell {
         NSLayoutConstraint.activate(graduationRateLabelConstraints)
     }
 
-    func configure(nycHighschool: NYCHighSchool) {
-        self.schoolNameLabel.text = nycHighschool.schoolName
-        self.addressLabel.text = nycHighschool.address
-        self.graduationRateText.text = nycHighschool.graduationRate > 0 ? nycHighschool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+    func configure(nycSchool: NYCSchool) {
+        self.schoolNameLabel.text = nycSchool.schoolName
+        self.addressLabel.text = nycSchool.address
+        self.graduationRateText.text = nycSchool.graduationRate > 0 ? nycSchool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
     }
 }

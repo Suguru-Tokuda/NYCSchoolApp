@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol NYCHighschoolListSearchDelegate: AnyObject {
-    func searchHighschoolsCompleted()
+protocol NYCSchoolListSearchDelegate: AnyObject {
+    func searchSchoolsCompleted()
 }
 
 class NYCListViewModel {
@@ -16,53 +16,53 @@ class NYCListViewModel {
     private var currentOffset: Int = 0
     private var allDataLoaded: Bool = false
     var orderKey: String = "graduation_rate"
-    var nycHighSchools: [NYCHighSchool] = []
-    var filteredNycHighSchools: [NYCHighSchool] = []
-    private var nycSchoolService: NYCHighSchoolService?
-    var getNYCHighSchoolsCompletionHandler: ((Error?) -> ())?
-    weak var delegate: NYCHighschoolListSearchDelegate?
+    var nycSchools: [NYCSchool] = []
+    var filteredNycSchools: [NYCSchool] = []
+    private var nycSchoolService: NYCSchoolService?
+    var getNYCSchoolsCompletionHandler: ((Error?) -> ())?
+    weak var delegate: NYCSchoolListSearchDelegate?
     
-    init(nycSchoolService: NYCHighSchoolService = NYCHighSchoolService()) {
+    init(nycSchoolService: NYCSchoolService = NYCSchoolService()) {
         self.nycSchoolService = nycSchoolService
         self.currentOffset = self.limit
     }
     
-    func getNYCHighSchools() async {
+    func getNYCSchools() async {
         if !allDataLoaded {
             do {
-                let schools = try await nycSchoolService?.getNYCHighSchools(limit: limit, offset: currentOffset, order: orderKey)
+                let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, order: orderKey)
                 
                 if let schools,
                    !schools.isEmpty {
-                    self.nycHighSchools += schools
+                    self.nycSchools += schools
                     currentOffset += limit
                 } else {
                     allDataLoaded = true
                 }
-                self.getNYCHighSchoolsCompletionHandler?(nil)
+                self.getNYCSchoolsCompletionHandler?(nil)
             } catch {
-                self.getNYCHighSchoolsCompletionHandler?(error)
+                self.getNYCSchoolsCompletionHandler?(error)
             }
         }
     }
     
-    func getAllNYCHighSchools() async {
+    func getAllNYCSchools() async {
         do {
-            if let schools = try await nycSchoolService?.getAllNYCHighSchools() {
-                self.filteredNycHighSchools = []
-                self.nycHighSchools = schools
-                self.getNYCHighSchoolsCompletionHandler?(nil)
+            if let schools = try await nycSchoolService?.getAllNYCSchools() {
+                self.filteredNycSchools = []
+                self.nycSchools = schools
+                self.getNYCSchoolsCompletionHandler?(nil)
             }
         } catch {
-            self.getNYCHighSchoolsCompletionHandler?(error)
+            self.getNYCSchoolsCompletionHandler?(error)
         }
     }
     
     /**
         Search high schools names by text
      */
-    func searchNYCHighSchools(searchText: String) {
-        self.filteredNycHighSchools = self.nycHighSchools.filter { $0.schoolName.lowercased().contains(searchText.lowercased()) }
-        self.delegate?.searchHighschoolsCompleted()
+    func searchNYCSchools(searchText: String) {
+        self.filteredNycSchools = self.nycSchools.filter { $0.schoolName.lowercased().contains(searchText.lowercased()) }
+        self.delegate?.searchSchoolsCompleted()
     }
 }

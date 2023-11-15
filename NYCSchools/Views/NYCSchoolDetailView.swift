@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolDetailView.swift
+//  NYCSchoolDetailView.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/13/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NYCHighSchoolDetailView: UIView {
+class NYCSchoolDetailView: UIView {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,14 +57,14 @@ class NYCHighSchoolDetailView: UIView {
         return label
     }()
     
-    private let statsView: NYCHighSchoolStatsView = {
-        let statsView = NYCHighSchoolStatsView()
+    private let statsView: NYCSchoolStatsView = {
+        let statsView = NYCSchoolStatsView()
         statsView.translatesAutoresizingMaskIntoConstraints = false
         return statsView
     }()
     
-    private let scoreLabelGroup: NYCHighSchoolScoreGroupView = {
-        let groupView = NYCHighSchoolScoreGroupView()
+    private let scoreLabelGroup: NYCSchoolScoreGroupView = {
+        let groupView = NYCSchoolScoreGroupView()
         groupView.translatesAutoresizingMaskIntoConstraints = false
         return groupView
     }()
@@ -96,7 +96,7 @@ class NYCHighSchoolDetailView: UIView {
     }
 }
 
-extension NYCHighSchoolDetailView {
+extension NYCSchoolDetailView {
     private func setupUI() {
         backgroundColor = .systemBackground
 
@@ -169,8 +169,8 @@ extension NYCHighSchoolDetailView {
     }
 }
 
-extension NYCHighSchoolDetailView {
-    func configure(school: NYCHighSchool, scoreData: NYCHighSchoolScorreData) {
+extension NYCSchoolDetailView {
+    func configure(school: NYCSchool, scoreData: NYCSchoolScorreData) {
         self.schoolNameLabel.text = school.schoolName
         self.addressLabel.text = school.address
         if !school.startTime.isEmpty && !school.endTime.isEmpty {

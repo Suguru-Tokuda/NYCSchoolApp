@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolMapViewController.swift
+//  NYCSchoolMapViewController.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/14/23.
@@ -8,9 +8,9 @@
 import UIKit
 import MapKit
 
-class NYCHighSchoolMapViewController: UIViewController {
+class NYCSchoolMapViewController: UIViewController {
     var listVM: NYCListViewModel = NYCListViewModel()
-    var mapVM: NYCHighSchoolDetailViewModel = NYCHighSchoolDetailViewModel()
+    var mapVM: NYCSchoolDetailViewModel = NYCSchoolDetailViewModel()
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -31,10 +31,10 @@ class NYCHighSchoolMapViewController: UIViewController {
     }
 }
 
-extension NYCHighSchoolMapViewController {
-    private func presentDetailsView(school: NYCHighSchool, mapView: MKMapView, annotation: MKAnnotation) {
+extension NYCSchoolMapViewController {
+    private func presentDetailsView(school: NYCSchool, mapView: MKMapView, annotation: MKAnnotation) {
         Task {
-            let detailsVC = NYCHighSchoolDetailViewController(isSheet: true)
+            let detailsVC = NYCSchoolDetailViewController(isSheet: true)
             
             detailsVC.sheetDismissed = {
                 mapView.deselectAnnotation(annotation, animated: true)
@@ -61,15 +61,15 @@ extension NYCHighSchoolMapViewController {
 
 }
 
-extension NYCHighSchoolMapViewController {
+extension NYCSchoolMapViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         mapView.delegate = self
         mapView.setRegion(mapVM.coordinate, animated: false)
         
-        listVM.getNYCHighSchoolsCompletionHandler = { error in
+        listVM.getNYCSchoolsCompletionHandler = { error in
             if error == nil {
-                let schoolsToAdd = self.mapVM.getAnnotationsToAdd(schools: self.listVM.nycHighSchools, region: self.mapView.region)
+                let schoolsToAdd = self.mapVM.getAnnotationsToAdd(schools: self.listVM.nycSchools, region: self.mapView.region)
                 self.addAnnotations(schools: schoolsToAdd, region: self.mapView.region)
             } else {
                 DispatchQueue.main.async {
@@ -83,11 +83,11 @@ extension NYCHighSchoolMapViewController {
         view.addSubview(mapView)
         
         Task {
-            await listVM.getAllNYCHighSchools()
+            await listVM.getAllNYCSchools()
         }
     }
     
-    private func addAnnotations(schools: [NYCHighSchool], region: MKCoordinateRegion) {
+    private func addAnnotations(schools: [NYCSchool], region: MKCoordinateRegion) {
         DispatchQueue.main.async {
             // remove all annotations first
             self.mapView.removeAnnotations(self.mapView.annotations)
@@ -108,18 +108,18 @@ extension NYCHighSchoolMapViewController {
     }
 }
 
-extension NYCHighSchoolMapViewController: MKMapViewDelegate {
+extension NYCSchoolMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if let annotationPoint = annotation as? CustomPointAnnotation {
             let id = annotationPoint.id
-            if let school = listVM.nycHighSchools.first(where: { $0.id == id }) {
+            if let school = listVM.nycSchools.first(where: { $0.id == id }) {
                 presentDetailsView(school: school, mapView: mapView, annotation: annotation)
             }
         }
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let schoolsToAdd = self.mapVM.getAnnotationsToAdd(schools: self.listVM.nycHighSchools, region: self.mapView.region)
+        let schoolsToAdd = self.mapVM.getAnnotationsToAdd(schools: self.listVM.nycSchools, region: self.mapView.region)
         self.addAnnotations(schools: schoolsToAdd, region: self.mapView.region)
     }
 }

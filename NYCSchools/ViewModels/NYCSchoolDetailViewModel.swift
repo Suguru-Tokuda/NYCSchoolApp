@@ -1,5 +1,5 @@
 //
-//  NYCHighSchoolDetailViewModel.swift
+//  NYCSchoolDetailViewModel.swift
 //  NYCSchools
 //
 //  Created by Suguru Tokuda on 11/13/23.
@@ -7,27 +7,27 @@
 
 import MapKit
 
-class NYCHighSchoolDetailViewModel {
+class NYCSchoolDetailViewModel {
     static let initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 40.7831, longitude: -73.9712)
-    var school: NYCHighSchool?
-    var scoreData: NYCHighSchoolScorreData?
-    var service: NYCHighSchoolService
+    var school: NYCSchool?
+    var scoreData: NYCSchoolScorreData?
+    var service: NYCSchoolService
     var coordinate: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: initialCoordinate.latitude, longitude: initialCoordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-    var coordiateSetHandlder: ((NYCHighSchool) -> ())?
+    var coordiateSetHandlder: ((NYCSchool) -> ())?
     var getNYCScoreDataHandler: ((Error?) -> ())?
     
-    init(service: NYCHighSchoolService = NYCHighSchoolService()) {
+    init(service: NYCSchoolService = NYCSchoolService()) {
         self.service = service
     }
     
-    func setSchool(school: NYCHighSchool) {
+    func setSchool(school: NYCSchool) {
         self.school = school
         coordiateSetHandlder?(school)
     }
     
-    func getNYCScoreData(id: String) async -> NYCHighSchoolScorreData? {
+    func getNYCScoreData(id: String) async -> NYCSchoolScorreData? {
         do {
-            guard let scoreData = try await service.getNYCHighSchoolScore(id: id) else {
+            guard let scoreData = try await service.getNYCSchoolScore(id: id) else {
                 self.getNYCScoreDataHandler?(NetworkError.noDataFoundError)
                 return nil
             }
@@ -40,7 +40,7 @@ class NYCHighSchoolDetailViewModel {
         }
     }
     
-    func getAnnotationsToAdd(schools: [NYCHighSchool], region: MKCoordinateRegion) -> [NYCHighSchool] {
+    func getAnnotationsToAdd(schools: [NYCSchool], region: MKCoordinateRegion) -> [NYCSchool] {
         let center = region.center
         let centerLong = center.longitude
         let centerLat = center.latitude

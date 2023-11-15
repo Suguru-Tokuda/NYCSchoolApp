@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
-    func searchResultsViewControllerDidTapItem(school: NYCHighSchool)
+    func searchResultsViewControllerDidTapItem(school: NYCSchool)
 }
 
 class SearchResultsViewController: UIViewController {
@@ -27,8 +27,8 @@ class SearchResultsViewController: UIViewController {
         setupUI()
         
         Task {
-            await vm.getAllNYCHighSchools()
-            print(vm.nycHighSchools.count)
+            await vm.getAllNYCSchools()
+            print(vm.nycSchools.count)
         }
     }
     
@@ -47,7 +47,7 @@ extension SearchResultsViewController {
         tableView.dataSource = self
         vm.delegate = self
         
-        vm.getNYCHighSchoolsCompletionHandler = { error in
+        vm.getNYCSchoolsCompletionHandler = { error in
             if error != nil {
                 self.view.addSubview(self.tableView)
             } else {
@@ -56,8 +56,8 @@ extension SearchResultsViewController {
     }
 }
 
-extension SearchResultsViewController: NYCHighschoolListSearchDelegate {
-    func searchHighschoolsCompleted() {
+extension SearchResultsViewController: NYCSchoolListSearchDelegate {
+    func searchSchoolsCompleted() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -71,7 +71,7 @@ extension SearchResultsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Task {
-            let school = self.vm.filteredNycHighSchools[indexPath.row]
+            let school = self.vm.filteredNycSchools[indexPath.row]
             self.delegate?.searchResultsViewControllerDidTapItem(school: school)
         }
     }
@@ -79,7 +79,7 @@ extension SearchResultsViewController: UITableViewDelegate {
 
 extension SearchResultsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.filteredNycHighSchools.count
+        return vm.filteredNycSchools.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,7 +87,7 @@ extension SearchResultsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(nycHighschool: vm.filteredNycHighSchools[indexPath.row])
+        cell.configure(nycSchool: vm.filteredNycSchools[indexPath.row])
         
         return cell
     }
