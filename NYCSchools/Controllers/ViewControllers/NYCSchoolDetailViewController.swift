@@ -49,6 +49,7 @@ class NYCSchoolDetailViewController: UIViewController {
                 presentationController.detents = [
                     .medium()
                 ]
+                presentationController.prefersGrabberVisible = true
                 setupUIForSheetView()
             }
         } else {

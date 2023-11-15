@@ -171,17 +171,33 @@ extension NYCSchoolDetailView {
 
 extension NYCSchoolDetailView {
     func configure(school: NYCSchool, scoreData: NYCSchoolScorreData) {
-        self.schoolNameLabel.text = school.schoolName
-        self.addressLabel.text = school.address
+        schoolNameLabel.text = school.schoolName
+        addressLabel.text = school.address
         if !school.startTime.isEmpty && !school.endTime.isEmpty {
-            self.hoursView.configure(startTime: school.startTime, endTime: school.endTime)
+            hoursView.configure(startTime: school.startTime, endTime: school.endTime)
         } else {
-            self.hoursView.isHidden = true
+            hoursView.isHidden = true
         }
         
-        self.overviewParagraph.text = school.overviewParaph
-        self.scoreLabelGroup.configure(scoreData: scoreData)
-        self.statsView.configure(school: school)
+        overviewParagraph.text = school.overviewParaph
+        
+        if scoreData.numOfSatTestTakers != 0 || scoreData.satCriticalReadingAvgScore != 0 || scoreData.satMathAvgScore != 0 || scoreData.satWritingAvgScore != 0 {
+            scoreLabelGroup.configure(scoreData: scoreData)
+        } else {
+            scoreLabelGroup.isHidden = true
+        }
+        
+        if school.totalStudents != 0 || school.attendanceRate != 0 || school.graduationRate != 0 || school.collegeCareerRate != 0 {
+            statsView.configure(school: school)
+        } else {
+            statsView.isHidden = true
+        }
+        
+        if scoreLabelGroup.isHidden && statsView.isHidden {
+            statsLabel.isHidden = true
+        }
+        
+        
         
         // add academic opportunities
         if !school.acamidecOpportunties.isEmpty {
