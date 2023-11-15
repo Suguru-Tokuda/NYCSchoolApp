@@ -55,7 +55,7 @@ extension HoursView {
         ]
         
         let hoursLabelConstraints = [
-            hoursLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            hoursLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             hoursLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             hoursLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
