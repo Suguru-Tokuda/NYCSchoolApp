@@ -8,6 +8,8 @@
 import UIKit
 
 class NYCSchoolDetailView: UIView {
+    weak var delegate: NYCSchoolHomepageURLTapDelegate?
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +49,12 @@ class NYCSchoolDetailView: UIView {
         let hoursView = HoursView()
         hoursView.translatesAutoresizingMaskIntoConstraints = false
         return hoursView
+    }()
+    
+    private let urlView: HomepageURLView = {
+        let urlView = HomepageURLView()
+        urlView.translatesAutoresizingMaskIntoConstraints = false
+        return urlView
     }()
     
     private let statsLabel: UILabel = {
@@ -108,11 +116,16 @@ extension NYCSchoolDetailView {
         stackView.addArrangedSubview(schoolNameLabel)
         stackView.addArrangedSubview(addressLabel)
         stackView.addArrangedSubview(hoursView)
+        stackView.addArrangedSubview(urlView)
         stackView.addArrangedSubview(statsLabel)
         stackView.addArrangedSubview(scoreLabelGroup)
         stackView.addArrangedSubview(statsView)
         stackView.addArrangedSubview(overviewParagraphLabel)
         stackView.addArrangedSubview(overviewParagraph)
+        
+        urlView.linkTapped = { urlStr in
+            self.delegate?.nycSchoolHomepageURLTap(urlStr: urlStr)            
+        }
         
         applyConstraints()
     }
@@ -148,6 +161,12 @@ extension NYCSchoolDetailView {
             hoursView.heightAnchor.constraint(equalToConstant: 50)
         ]
         
+        let urlViewConstraints = [
+            urlView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            urlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            urlView.heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
         let scoreLableGroupConstraints = [
             scoreLabelGroup.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             scoreLabelGroup.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -164,6 +183,7 @@ extension NYCSchoolDetailView {
         NSLayoutConstraint.activate(contentViewConstraints)
         NSLayoutConstraint.activate(stackViewContainerConstraints)
         NSLayoutConstraint.activate(hoursViewConstraints)
+        NSLayoutConstraint.activate(urlViewConstraints)
         NSLayoutConstraint.activate(scoreLableGroupConstraints)
         NSLayoutConstraint.activate(statsViewConstraints)
     }
@@ -197,7 +217,11 @@ extension NYCSchoolDetailView {
             statsLabel.isHidden = true
         }
         
-        
+        if !school.website.isEmpty {
+            urlView.configure(urlStr: school.website)
+        } else {
+            urlView.isHidden = true
+        }
         
         // add academic opportunities
         if !school.acamidecOpportunties.isEmpty {

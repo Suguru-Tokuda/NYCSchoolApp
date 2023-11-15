@@ -28,7 +28,6 @@ class SearchResultsViewController: UIViewController {
         
         Task {
             await vm.getAllNYCSchools()
-            print(vm.nycSchools.count)
         }
     }
     

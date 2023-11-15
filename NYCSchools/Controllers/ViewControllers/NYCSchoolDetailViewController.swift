@@ -8,6 +8,10 @@
 import UIKit
 import MapKit
 
+protocol NYCSchoolHomepageURLTapDelegate: AnyObject {
+    func nycSchoolHomepageURLTap(urlStr: String)
+}
+
 class NYCSchoolDetailViewController: UIViewController {
     var vm: NYCSchoolDetailViewModel = NYCSchoolDetailViewModel()
     var isSheet: Bool = false
@@ -71,6 +75,8 @@ extension NYCSchoolDetailViewController {
         
         view.addSubview(mapView)
         view.addSubview(detailsViewContainer)
+        
+        detailsViewContainer.delegate = self
 
         mapView.centerCoordinate = NYCSchoolDetailViewModel.initialCoordinate
         applyConstraints()
@@ -136,5 +142,14 @@ extension NYCSchoolDetailViewController {
 extension NYCSchoolDetailViewController: UISheetPresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         self.sheetDismissed?()
+    }
+}
+
+extension NYCSchoolDetailViewController: NYCSchoolHomepageURLTapDelegate {
+    func nycSchoolHomepageURLTap(urlStr: String) {
+        if !urlStr.isEmpty {
+            let vc = WebViewController(urlStr: urlStr)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

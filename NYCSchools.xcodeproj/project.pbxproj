@@ -35,6 +35,8 @@
 		BBA699AB2B04FE3700BA92A4 /* TitleBulletPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */; };
 		BBA699AD2B052AE100BA92A4 /* NYCSchoolStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */; };
 		BBA699AF2B0530B700BA92A4 /* HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AE2B0530B700BA92A4 /* HoursView.swift */; };
+		BBA699B12B05531800BA92A4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699B02B05531800BA92A4 /* WebViewController.swift */; };
+		BBA699B32B0554D900BA92A4 /* HomepageURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBulletPointsView.swift; sourceTree = "<group>"; };
 		BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolStatsView.swift; sourceTree = "<group>"; };
 		BBA699AE2B0530B700BA92A4 /* HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursView.swift; sourceTree = "<group>"; };
+		BBA699B02B05531800BA92A4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageURLView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,13 +88,14 @@
 		BB3B218C2B02609900A4B0D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */,
+				BBA699AE2B0530B700BA92A4 /* HoursView.swift */,
 				BB3B21C82B02B9CF00A4B0D9 /* NYCSchoolDetailView.swift */,
 				BB3B21D42B03B43400A4B0D9 /* NYCSchoolScoreGroupView.swift */,
 				BB3B21D02B03A95500A4B0D9 /* NYCSchoolScoreView.swift */,
 				BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */,
 				BB3B218E2B02612800A4B0D9 /* NYCTableViewCell.swift */,
 				BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */,
-				BBA699AE2B0530B700BA92A4 /* HoursView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,9 +120,10 @@
 		BB3B21C62B02B0A700A4B0D9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BB5834902AFECD4F005014C9 /* NYCListViewController.swift */,
 				BB3B21B62B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift */,
 				BB7E8F252B03E37200C379A1 /* NYCSchoolMapViewController.swift */,
-				BB5834902AFECD4F005014C9 /* NYCListViewController.swift */,
+				BBA699B02B05531800BA92A4 /* WebViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -307,7 +313,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA699B32B0554D900BA92A4 /* HomepageURLView.swift in Sources */,
 				BB58348F2AFECD40005014C9 /* NYCListViewModel.swift in Sources */,
+				BBA699B12B05531800BA92A4 /* WebViewController.swift in Sources */,
 				BB58347F2AFEC406005014C9 /* NYCSchool.swift in Sources */,
 				BB5834832AFEC5D6005014C9 /* NetworkManager.swift in Sources */,
 				BB3B21C32B02AF7E00A4B0D9 /* CustomNavigationController.swift in Sources */,
