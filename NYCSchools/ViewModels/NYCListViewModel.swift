@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NYCHighschoolListSearchDelegate {
+protocol NYCHighschoolListSearchDelegate: AnyObject {
     func searchHighschoolsCompleted()
 }
 
@@ -20,7 +20,7 @@ class NYCListViewModel {
     var filteredNycHighSchools: [NYCHighSchool] = []
     private var nycSchoolService: NYCHighSchoolService?
     var getNYCHighSchoolsCompletionHandler: ((Error?) -> ())?
-    var delegate: NYCHighschoolListSearchDelegate?
+    weak var delegate: NYCHighschoolListSearchDelegate?
     
     init(nycSchoolService: NYCHighSchoolService = NYCHighSchoolService()) {
         self.nycSchoolService = nycSchoolService
@@ -48,7 +48,6 @@ class NYCListViewModel {
     
     func getAllNYCHighSchools() async {
         do {
-            self.getNYCHighSchoolsCompletionHandler?(nil)
             if let schools = try await nycSchoolService?.getAllNYCHighSchools() {
                 self.filteredNycHighSchools = []
                 self.nycHighSchools = schools

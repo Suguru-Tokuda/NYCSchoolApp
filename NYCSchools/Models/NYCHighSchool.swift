@@ -17,12 +17,14 @@ struct NYCHighSchool: Decodable, Identifiable {
         location,
         phoneNumber,
         website,
+        startTime,
+        endTime,
         primaryAddressLine,
         city,
         stateCode,
         zip: String
     let totalStudents: Int
-    let latitude, longitude, graduationRate, attendanceRate: Double
+    let latitude, longitude, graduationRate, attendanceRate, collegeCareerRate: Double
     let acamidecOpportunties: [String]
     let requirements: [Int : [String]]
     let admissionPriorities: [Int: [String]]
@@ -45,6 +47,8 @@ struct NYCHighSchool: Decodable, Identifiable {
         case location
         case phoneNumber = "phone_number"
         case website
+        case startTime = "start_time"
+        case endTime = "end_time"
         case primaryAddressLine = "primary_address_line_1"
         case city
         case stateCode = "state_code"
@@ -52,6 +56,7 @@ struct NYCHighSchool: Decodable, Identifiable {
         case totalStudents = "total_students"
         case attendanceRate = "attendance_rate"
         case graduationRate = "graduation_rate"
+        case collegeCareerRate = "college_career_rate"
         case latitude
         case longitude
     }
@@ -89,6 +94,8 @@ struct NYCHighSchool: Decodable, Identifiable {
         self.location = try container.decode(String.self, forKey: .location)
         self.phoneNumber = try container.decode(String.self, forKey: .phoneNumber)
         self.website = try container.decode(String.self, forKey: .website)
+        self.startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
+        self.endTime = try container.decodeIfPresent(String.self, forKey: .endTime) ?? ""
         self.primaryAddressLine = try container.decode(String.self, forKey: .primaryAddressLine)
         self.city = try container.decode(String.self, forKey: .city)
         self.stateCode = try container.decode(String.self, forKey: .stateCode)
@@ -96,6 +103,7 @@ struct NYCHighSchool: Decodable, Identifiable {
         self.totalStudents = Int(try container.decode(String.self, forKey: .totalStudents)) ?? 0
         self.attendanceRate = Double(try container.decodeIfPresent(String.self, forKey: .attendanceRate) ?? "0.00") ?? 0
         self.graduationRate = Double(try container.decodeIfPresent(String.self, forKey: .graduationRate) ?? "0.00") ?? 0
+        self.collegeCareerRate = Double(try container.decodeIfPresent(String.self, forKey: .collegeCareerRate) ?? "0.00") ?? 0
         self.latitude = Double(try container.decodeIfPresent(String.self, forKey: .latitude) ?? "0") ?? 0.0
         self.longitude = Double(try container.decodeIfPresent(String.self, forKey: .longitude) ?? "0") ?? 0.0
         

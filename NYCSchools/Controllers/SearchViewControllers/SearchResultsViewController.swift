@@ -13,7 +13,7 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
 
 class SearchResultsViewController: UIViewController {
     var vm: NYCListViewModel = NYCListViewModel()
-    var delegate: SearchResultsViewControllerDelegate?
+    weak var delegate: SearchResultsViewControllerDelegate?
 
     let tableView: UITableView = {
         let tableView = UITableView()

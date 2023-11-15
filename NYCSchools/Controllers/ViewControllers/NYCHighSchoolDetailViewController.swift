@@ -11,6 +11,7 @@ import MapKit
 class NYCHighSchoolDetailViewController: UIViewController {
     var vm: NYCHighSchoolDetailViewModel = NYCHighSchoolDetailViewModel()
     var isSheet: Bool = false
+    var sheetDismissed: (() -> ())?
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -44,6 +45,7 @@ class NYCHighSchoolDetailViewController: UIViewController {
         
         if isSheet {
             if let presentationController = presentationController as? UISheetPresentationController {
+                presentationController.delegate = self
                 presentationController.detents = [
                     .medium()
                 ]
@@ -127,5 +129,11 @@ extension NYCHighSchoolDetailViewController {
             self.setAnnotation(school: school)
             self.detailsViewContainer.configure(school: school, scoreData: scoreData)
         }
+    }
+}
+
+extension NYCHighSchoolDetailViewController: UISheetPresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        self.sheetDismissed?()
     }
 }

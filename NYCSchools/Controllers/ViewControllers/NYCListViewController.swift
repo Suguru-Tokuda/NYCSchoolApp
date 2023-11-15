@@ -68,23 +68,23 @@ extension NYCListViewController {
     private func navigateToDetailsView(school: NYCHighSchool) {
         Task {
             let detailsVC = NYCHighSchoolDetailViewController()
+            detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error Fetching School Data", message: error?.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                        self?.present(alert, animated: true)
+                    }
+                }
+            }
+
             if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
                 DispatchQueue.main.async {
                     detailsVC.configure(school: school, scoreData: scoreData)
                     self.navigationController?.pushViewController(detailsVC, animated: true)
                 }
-            } else {
-                let alert = UIAlertController(title: "Error Fetching School Data", message: NetworkError.unknownError.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                self.present(alert, animated: true)
             }
         }
-    }
-}
-
-extension NYCListViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
     }
 }
 

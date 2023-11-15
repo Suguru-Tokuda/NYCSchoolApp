@@ -8,7 +8,7 @@
 import UIKit
 
 class NYCHighSchoolScoreView: UIView {   
-    var scoreText: UILabel = {
+    private let scoreText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
@@ -17,7 +17,7 @@ class NYCHighSchoolScoreView: UIView {
         return label
     }()
     
-    var scoreLabel: UILabel = {
+    private let scoreLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.numberOfLines = 0
@@ -62,8 +62,8 @@ extension NYCHighSchoolScoreView {
         NSLayoutConstraint.activate(scoreLabelConstraints)
     }
     
-    func configure(score: Int, labelText: String) {
-        scoreText.text = String(score)
+    func configure(scoreTextStr: String, labelText: String) {
+        scoreText.text = scoreTextStr
         scoreLabel.text = labelText
     }
 }

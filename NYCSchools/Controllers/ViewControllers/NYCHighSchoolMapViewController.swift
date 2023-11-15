@@ -32,18 +32,29 @@ class NYCHighSchoolMapViewController: UIViewController {
 }
 
 extension NYCHighSchoolMapViewController {
-    private func presentDetailsView(school: NYCHighSchool) {
+    private func presentDetailsView(school: NYCHighSchool, mapView: MKMapView, annotation: MKAnnotation) {
         Task {
             let detailsVC = NYCHighSchoolDetailViewController(isSheet: true)
+            
+            detailsVC.sheetDismissed = {
+                mapView.deselectAnnotation(annotation, animated: true)
+            }
+            
+            detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error Fetching School Data", message: error?.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                        self?.present(alert, animated: true)
+                    }
+                }
+            }
+            
             if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
                 DispatchQueue.main.async {
                     detailsVC.configure(school: school, scoreData: scoreData, showMapView: false)
                     self.present(detailsVC, animated: true)
                 }
-            } else {
-                let alert = UIAlertController(title: "Error Fetching School Data", message: NetworkError.unknownError.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                self.present(alert, animated: true)
             }
         }
     }
@@ -59,12 +70,13 @@ extension NYCHighSchoolMapViewController {
         listVM.getNYCHighSchoolsCompletionHandler = { error in
             if error == nil {
                 let schoolsToAdd = self.mapVM.getAnnotationsToAdd(schools: self.listVM.nycHighSchools, region: self.mapView.region)
-                print(schoolsToAdd.count)
                 self.addAnnotations(schools: schoolsToAdd, region: self.mapView.region)
             } else {
-                let alert = UIAlertController(title: "Error Fetching School Data", message: error!.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                self.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error Fetching School Data", message: error!.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                    self.present(alert, animated: true)
+                }
             }
         }
 
@@ -101,7 +113,7 @@ extension NYCHighSchoolMapViewController: MKMapViewDelegate {
         if let annotationPoint = annotation as? CustomPointAnnotation {
             let id = annotationPoint.id
             if let school = listVM.nycHighSchools.first(where: { $0.id == id }) {
-                presentDetailsView(school: school)
+                presentDetailsView(school: school, mapView: mapView, annotation: annotation)
             }
         }
     }

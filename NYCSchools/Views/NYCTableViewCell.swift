@@ -10,7 +10,7 @@ import UIKit
 class NYCTableViewCell: UITableViewCell {
     static let identifier = "NYCTableViewCell"
     
-    let schoolNameLabel: UILabel = {
+    private let schoolNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -19,7 +19,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    let addressLabel: UILabel = {
+    private let addressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -28,13 +28,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    let namesGroupView: UIView = {
+    private let namesGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let graduationRateText: UILabel = {
+    private let graduationRateText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.text = "90%"
@@ -44,7 +44,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    let graduationRateLabel: UILabel = {
+    private let graduationRateLabel: UILabel = {
         let label = UILabel()
         label.text = "Graduation Rate"
         label.font = UIFont.systemFont(ofSize: 10)
@@ -55,13 +55,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    let graduationRateGroupView: UIView = {
+    private let graduationRateGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let labelStackView: UIStackView = {
+    private let labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalCentering
@@ -151,6 +151,6 @@ extension NYCTableViewCell {
     func configure(nycHighschool: NYCHighSchool) {
         self.schoolNameLabel.text = nycHighschool.schoolName
         self.addressLabel.text = nycHighschool.address
-        self.graduationRateText.text = nycHighschool.graduationRate.toPercentageStr(decimalPlaces: 2)
+        self.graduationRateText.text = nycHighschool.graduationRate > 0 ? nycHighschool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
     }
 }
