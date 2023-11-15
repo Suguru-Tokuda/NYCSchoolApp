@@ -11,7 +11,7 @@ class NYCHighSchoolScoreGroupView: UIView {
     var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -47,14 +47,14 @@ extension NYCHighSchoolScoreGroupView {
         mathScoreView.configure(score: scoreData.satMathAvgScore, labelText: "AVG Math")
         writingScoreView.configure(score: scoreData.satWritingAvgScore, labelText: "AVG Writing")
         
-        let subviews = [
+        let subviews: [NYCHighSchoolScoreView] = [
             testTakerScoreView,
             criticalScoreView,
             mathScoreView,
             writingScoreView
         ]
         
-        let width = self.bounds.size.width / 4
+        let width = self.bounds.size.width / CGFloat(subviews.count)
         
         subviews.forEach { subview in
             subview.widthAnchor.constraint(equalToConstant: width).isActive = true

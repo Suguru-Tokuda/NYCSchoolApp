@@ -7,19 +7,12 @@
 
 import UIKit
 
-class NYCHighSchoolScoreView: UIView {
-    var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+class NYCHighSchoolScoreView: UIView {   
     var scoreText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -28,6 +21,7 @@ class NYCHighSchoolScoreView: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.numberOfLines = 0
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,34 +35,31 @@ class NYCHighSchoolScoreView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
 }
 
 extension NYCHighSchoolScoreView {
     private func setupUI() {
-        stackView.addArrangedSubview(scoreText)
-        stackView.addArrangedSubview(scoreLabel)
-        self.addSubview(stackView)
-        
-        applyConstraints()        
+        addSubview(scoreText)
+        addSubview(scoreLabel)
+        applyConstraints()
     }
     
     private func applyConstraints() {
-        let stackViewConstraints = [
-            stackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-        ]
-        
         let scoreTextConstraints = [
-            scoreText.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            scoreText.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+            scoreText.topAnchor.constraint(equalTo: topAnchor),
+            scoreText.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scoreText.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
         
         let scoreLabelConstraints = [
-            scoreLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            scoreLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+            scoreLabel.topAnchor.constraint(equalTo: scoreText.bottomAnchor, constant: 5),
+            scoreLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
         
-        NSLayoutConstraint.activate(stackViewConstraints + scoreTextConstraints + scoreLabelConstraints)
+        NSLayoutConstraint.activate(scoreTextConstraints)
+        NSLayoutConstraint.activate(scoreLabelConstraints)
     }
     
     func configure(score: Int, labelText: String) {
