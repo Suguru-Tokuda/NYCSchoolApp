@@ -10,7 +10,11 @@ import WebKit
 
 class WebViewController: UIViewController {
     var urlStr: String = ""
-    private let webView: WKWebView = WKWebView()
+    private let webView: WKWebView = {
+        let webView = WKWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    }()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -27,9 +31,7 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        view.addSubview(webView)
-        webView.navigationDelegate = self
+        setupUI()
         
         if !urlStr.isEmpty {
             if !urlStr.contains("https://") {
@@ -40,11 +42,30 @@ class WebViewController: UIViewController {
                 webView.load(URLRequest(url: url))
             }
         }        
+    }    
+}
+
+extension WebViewController {
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.backgroundColor = .systemBackground
+        tabBarController?.tabBar.backgroundColor = .systemBackground
+        view.addSubview(webView)
+        webView.backgroundColor = .systemBackground
+        webView.navigationDelegate = self
+        
+        applyConstraints()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        webView.frame = view.bounds
+    private func applyConstraints() {
+        let webViewConstraints = [
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(webViewConstraints)
     }
 }
 
