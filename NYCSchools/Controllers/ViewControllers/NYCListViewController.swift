@@ -7,8 +7,15 @@
 
 import UIKit
 
-class NYCListViewController: UIViewController {
+class NYCListViewController: UIViewController, UISearchControllerDelegate {
     var vm: NYCListViewModel = NYCListViewModel()
+    
+    let searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: SearchResultsViewController())
+        controller.searchBar.placeholder = "Search..."
+        controller.searchBar.searchBarStyle = .minimal
+        return controller
+    }()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -23,23 +30,31 @@ class NYCListViewController: UIViewController {
         setupUI()
         
         Task {
-            await vm.getNYCHighSchools()
+            await vm.getNYCSchools()
         }
     }
     
     override func viewDidLayoutSubviews() {
-        tableView.frame = view.bounds
+        super.viewDidLayoutSubviews()
+        self.tableView.frame = view.bounds
     }
 }
 
 extension NYCListViewController {
     private func setupUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.searchController = self.searchController
+        navigationController?.navigationBar.tintColor = .white
+        searchController.searchResultsUpdater = self
+        if let searchResultVC = searchController.searchResultsController as? SearchResultsViewController {
+            searchResultVC.delegate = self
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
-        
         view.addSubview(tableView)
         
-        vm.getNYCHighSchoolsCompletionHandler = { error in
+        vm.getNYCSchoolsCompletionHandler = { error in
             if error == nil {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -49,11 +64,33 @@ extension NYCListViewController {
             }
         }
     }
+    
+    private func navigateToDetailsView(school: NYCSchool) {
+        Task {
+            let detailsVC = NYCSchoolDetailViewController()
+            detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error Fetching School Data", message: error?.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                        self?.present(alert, animated: true)
+                    }
+                }
+            }
+
+            if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
+                DispatchQueue.main.async {
+                    detailsVC.configure(school: school, scoreData: scoreData)
+                    self.navigationController?.pushViewController(detailsVC, animated: true)
+                }
+            }
+        }
+    }
 }
 
 extension NYCListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.nycHighSchools.count
+        return vm.nycSchools.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,15 +98,15 @@ extension NYCListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(nycHighschool: vm.nycHighSchools[indexPath.row])
+        cell.configure(nycSchool: vm.nycSchools[indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == vm.nycHighSchools.count {
+        if indexPath.row + 1 == vm.nycSchools.count {
             Task {
-                await vm.getNYCHighSchools()
+                await vm.getNYCSchools()
             }
         }
     }
@@ -81,18 +118,23 @@ extension NYCListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            let school = self.vm.nycHighSchools[indexPath.row]
-            
-            
-            print(school)
-            
-            let detailsVC = NYCHighSchoolDetailViewController()
-            detailsVC.setSchool(school: school)
-            
-            print(detailsVC)
-            
-            self.navigationController?.pushViewController(detailsVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        navigateToDetailsView(school: self.vm.nycSchools[indexPath.row])
+    }
+}
+
+extension NYCListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let vc = searchController.searchResultsController as? SearchResultsViewController {
+            if let searchText = searchController.searchBar.text {
+                vc.vm.searchNYCSchools(searchText: searchText)
+            }
         }
+    }
+}
+
+extension NYCListViewController: SearchResultsViewControllerDelegate {
+    func searchResultsViewControllerDidTapItem(school: NYCSchool) {
+        navigateToDetailsView(school: school)
     }
 }
