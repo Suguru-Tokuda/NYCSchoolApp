@@ -12,7 +12,7 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     
     let searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
-        controller.searchBar.placeholder = "Search..."
+        controller.searchBar.placeholder = "Search by school name..."
         controller.searchBar.searchBarStyle = .minimal
         return controller
     }()
