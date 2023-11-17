@@ -86,7 +86,7 @@ extension SearchResultsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(nycSchool: vm.filteredNycSchools[indexPath.row])
+        cell.configure(nycSchool: vm.filteredNycSchools[indexPath.row], sortKey: vm.sortkey)
         
         return cell
     }
