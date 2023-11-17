@@ -34,19 +34,17 @@ class NYCTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let graduationRateText: UILabel = {
+    private let rateText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.text = "90%"
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let graduationRateLabel: UILabel = {
+    private let rateTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "Graduation Rate"
         label.font = UIFont.systemFont(ofSize: 10)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -55,7 +53,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let graduationRateGroupView: UIView = {
+    private let collegeCareerRateGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -92,11 +90,11 @@ extension NYCTableViewCell {
         namesGroupView.addSubview(schoolNameLabel)
         namesGroupView.addSubview(addressLabel)
         
-        graduationRateGroupView.addSubview(graduationRateText)
-        graduationRateGroupView.addSubview(graduationRateLabel)
+        collegeCareerRateGroupView.addSubview(rateText)
+        collegeCareerRateGroupView.addSubview(rateTextLabel)
         
         labelStackView.addArrangedSubview(namesGroupView)
-        labelStackView.addArrangedSubview(graduationRateGroupView)
+        labelStackView.addArrangedSubview(collegeCareerRateGroupView)
         
         contentView.addSubview(labelStackView)
         
@@ -126,17 +124,17 @@ extension NYCTableViewCell {
         ]
         
         let graduationGroupViewConstraints = [
-            graduationRateGroupView.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor)
+            collegeCareerRateGroupView.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor)
         ]
         
         let graduationRateTextConstraints = [
-            graduationRateText.topAnchor.constraint(equalTo: graduationRateGroupView.topAnchor),
-            graduationRateText.trailingAnchor.constraint(equalTo: graduationRateGroupView.trailingAnchor)
+            rateText.topAnchor.constraint(equalTo: collegeCareerRateGroupView.topAnchor),
+            rateText.trailingAnchor.constraint(equalTo: collegeCareerRateGroupView.trailingAnchor)
         ]
         
         let graduationRateLabelConstraints = [
-            graduationRateLabel.topAnchor.constraint(equalTo: graduationRateText.bottomAnchor, constant: 5),
-            graduationRateLabel.trailingAnchor.constraint(equalTo: graduationRateGroupView.trailingAnchor)
+            rateTextLabel.topAnchor.constraint(equalTo: rateText.bottomAnchor, constant: 5),
+            rateTextLabel.trailingAnchor.constraint(equalTo: collegeCareerRateGroupView.trailingAnchor)
         ]
         
         NSLayoutConstraint.activate(namesViewConstraints)
@@ -148,9 +146,26 @@ extension NYCTableViewCell {
         NSLayoutConstraint.activate(graduationRateLabelConstraints)
     }
 
-    func configure(nycSchool: NYCSchool) {
+    func configure(nycSchool: NYCSchool, sortKey: NYCSchoolSortKey) {
         self.schoolNameLabel.text = nycSchool.schoolName
         self.addressLabel.text = nycSchool.address
-        self.graduationRateText.text = nycSchool.graduationRate > 0 ? nycSchool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+        
+        switch sortKey {
+        case .attendanceRate:
+            self.rateTextLabel.text = sortKey.rawValue
+            self.rateText.text = nycSchool.attendanceRate > 0 ? nycSchool.attendanceRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+        case .collegeCareerRate:
+            self.rateTextLabel.text = sortKey.rawValue
+            self.rateText.text = nycSchool.collegeCareerRate > 0 ? nycSchool.collegeCareerRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+        case .graduationRate:
+            self.rateTextLabel.text = sortKey.rawValue
+            self.rateText.text = nycSchool.graduationRate > 0 ? nycSchool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+        case .totalStudents:
+            self.rateTextLabel.text = sortKey.rawValue
+            self.rateText.text = nycSchool.totalStudents > 0 ? String(nycSchool.totalStudents) : "No Data"
+        default:
+            self.rateTextLabel.text = NYCSchoolSortKey.graduationRate.rawValue
+            self.rateText.text = nycSchool.graduationRate > 0 ? nycSchool.graduationRate.toPercentageStr(decimalPlaces: 2) : "No Data"
+        }
     }
 }
