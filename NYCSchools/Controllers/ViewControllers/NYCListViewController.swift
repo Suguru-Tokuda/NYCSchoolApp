@@ -8,16 +8,16 @@
 import UIKit
 
 class NYCListViewController: UIViewController, UISearchControllerDelegate {
-    var vm: NYCListViewModel = NYCListViewModel()
+    var vm: NYCListViewModel! = NYCListViewModel()
+    var sortVC: SortViewController?
     
-    let searchController: UISearchController = {
+    private var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
         controller.searchBar.placeholder = "Search by school name..."
-        controller.searchBar.searchBarStyle = .minimal
         return controller
     }()
     
-    let tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NYCTableViewCell.self, forCellReuseIdentifier: NYCTableViewCell.identifier)
@@ -26,7 +26,6 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         
         Task {
@@ -36,7 +35,11 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.tableView.frame = view.bounds
+        seupUIAfterViewDiLayoutSubviews()
+    }
+        
+    deinit {
+        vm = nil
     }
 }
 
@@ -44,6 +47,7 @@ extension NYCListViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         navigationItem.searchController = self.searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationController?.navigationBar.tintColor = .white
         searchController.searchResultsUpdater = self
         if let searchResultVC = searchController.searchResultsController as? SearchResultsViewController {
@@ -52,6 +56,7 @@ extension NYCListViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        self.tabBarController?.delegate = self
         view.addSubview(tableView)
         
         vm.getNYCSchoolsCompletionHandler = { error in
@@ -60,7 +65,7 @@ extension NYCListViewController {
                     self.tableView.reloadData()
                 }
             } else {
-                
+                self.showErrorAlert(error: error!)
             }
         }
     }
@@ -70,11 +75,7 @@ extension NYCListViewController {
             let detailsVC = NYCSchoolDetailViewController()
             detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
                 if error != nil {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error Fetching School Data", message: error?.localizedDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                        self?.present(alert, animated: true)
-                    }
+                    self?.showErrorAlert(error: error!)
                 }
             }
 
@@ -83,6 +84,41 @@ extension NYCListViewController {
                     detailsVC.configure(school: school, scoreData: scoreData)
                     self.navigationController?.pushViewController(detailsVC, animated: true)
                 }
+            }
+        }
+    }
+    
+    private func showErrorAlert(error: Error) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error Fetching School Data", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self.present(alert, animated: true)
+        }
+    }
+}
+
+extension NYCListViewController {
+    func seupUIAfterViewDiLayoutSubviews() {
+        self.tableView.frame = view.bounds
+        
+        let filterBtn = UIButton()
+        filterBtn.imageView?.tintColor = .systemGray
+        filterBtn.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        filterBtn.addTarget(self, action: #selector(filterBtnTap), for: .touchUpInside)
+        searchController.searchBar.searchTextField.rightView = filterBtn
+        searchController.searchBar.searchTextField.rightViewMode = .always
+        searchController.searchBar.searchTextField.delegate = self
+    }
+    
+    @objc private func filterBtnTap() {
+        sortVC = SortViewController()
+        sortVC?.configure(sortKey: vm.sortkey, sortOrder: vm.sortOrder)
+        navigationController?.pushViewController(sortVC!, animated: true)
+        
+        sortVC?.sortOptionApply = { [weak self] value in
+            Task {
+                await self?.vm.resetAndGetSchools(sortKey: value.0, sortOrder: value.1)
+                self?.scrollToTop()
             }
         }
     }
@@ -97,8 +133,10 @@ extension NYCListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NYCTableViewCell.identifier, for: indexPath) as? NYCTableViewCell else {
             return UITableViewCell()
         }
-
-        cell.configure(nycSchool: vm.nycSchools[indexPath.row])
+        
+        if vm.nycSchools.count > indexPath.row {
+            cell.configure(nycSchool: vm.nycSchools[indexPath.row], sortKey: vm.sortkey)
+        }
         
         return cell
     }
@@ -136,5 +174,32 @@ extension NYCListViewController: UISearchResultsUpdating {
 extension NYCListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidTapItem(school: NYCSchool) {
         navigateToDetailsView(school: school)
+    }
+}
+
+extension NYCListViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        searchController.searchBar.searchTextField.rightView?.isHidden = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        searchController.searchBar.searchTextField.rightView?.isHidden = false
+    }
+}
+
+extension NYCListViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if let vc = viewController as? CustomNavigationController,
+           vc.identifier == "NYCListViewController",
+           let sortVC {
+            sortVC.navigationController?.popViewController(animated: false)
+        }
+    }
+}
+
+extension NYCListViewController {
+    private func scrollToTop() {
+        let topRow = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: topRow, at: .top, animated: false)
     }
 }
