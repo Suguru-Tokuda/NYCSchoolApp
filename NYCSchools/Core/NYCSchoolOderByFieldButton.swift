@@ -8,7 +8,7 @@
 import UIKit
 
 class NYCSchoolOderByFieldButton: UIButton {
-    var orderByField: NYCSchoolOrderKey = .schoolName
+    var orderByField: NYCSchoolSortKey = .schoolName
 
     override init(frame: CGRect) {
         super.init(frame: frame)
