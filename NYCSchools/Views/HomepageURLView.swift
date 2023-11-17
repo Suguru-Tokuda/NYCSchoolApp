@@ -55,6 +55,10 @@ extension HomepageURLView {
     }
     
     private func applyConstraints() {
+        let viewConstraints = [
+            heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -66,6 +70,7 @@ extension HomepageURLView {
             urlBtn.leadingAnchor.constraint(equalTo: leadingAnchor)
         ]
         
+        NSLayoutConstraint.activate(viewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(urlBtnCostraints)
     }
