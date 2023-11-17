@@ -37,6 +37,13 @@
 		BBA699AF2B0530B700BA92A4 /* HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AE2B0530B700BA92A4 /* HoursView.swift */; };
 		BBA699B12B05531800BA92A4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699B02B05531800BA92A4 /* WebViewController.swift */; };
 		BBA699B32B0554D900BA92A4 /* HomepageURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */; };
+		BBA699B52B064C6E00BA92A4 /* NYCSchoolSortKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699B42B064C6E00BA92A4 /* NYCSchoolSortKey.swift */; };
+		BBA699BB2B065BCE00BA92A4 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699BA2B065BCE00BA92A4 /* SortViewController.swift */; };
+		BBA699BD2B0666BF00BA92A4 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699BC2B0666BF00BA92A4 /* SortOrder.swift */; };
+		BBA699C02B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699BF2B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift */; };
+		BBA699C22B0669E300BA92A4 /* SortOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699C12B0669E300BA92A4 /* SortOrderView.swift */; };
+		BBA699C42B06771800BA92A4 /* FilterByView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699C32B06771800BA92A4 /* FilterByView.swift */; };
+		BBA699C62B067DDA00BA92A4 /* NYCSchoolOderByFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699C52B067DDA00BA92A4 /* NYCSchoolOderByFieldButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +79,13 @@
 		BBA699AE2B0530B700BA92A4 /* HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursView.swift; sourceTree = "<group>"; };
 		BBA699B02B05531800BA92A4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageURLView.swift; sourceTree = "<group>"; };
+		BBA699B42B064C6E00BA92A4 /* NYCSchoolSortKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolSortKey.swift; sourceTree = "<group>"; };
+		BBA699BA2B065BCE00BA92A4 /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		BBA699BC2B0666BF00BA92A4 /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
+		BBA699BF2B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolSortViewModel.swift; sourceTree = "<group>"; };
+		BBA699C12B0669E300BA92A4 /* SortOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderView.swift; sourceTree = "<group>"; };
+		BBA699C32B06771800BA92A4 /* FilterByView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterByView.swift; sourceTree = "<group>"; };
+		BBA699C52B067DDA00BA92A4 /* NYCSchoolOderByFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolOderByFieldButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +102,7 @@
 		BB3B218C2B02609900A4B0D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBA699C32B06771800BA92A4 /* FilterByView.swift */,
 				BBA699B22B0554D900BA92A4 /* HomepageURLView.swift */,
 				BBA699AE2B0530B700BA92A4 /* HoursView.swift */,
 				BB3B21C82B02B9CF00A4B0D9 /* NYCSchoolDetailView.swift */,
@@ -95,6 +110,7 @@
 				BB3B21D02B03A95500A4B0D9 /* NYCSchoolScoreView.swift */,
 				BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */,
 				BB3B218E2B02612800A4B0D9 /* NYCTableViewCell.swift */,
+				BBA699C12B0669E300BA92A4 /* SortOrderView.swift */,
 				BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */,
 			);
 			path = Views;
@@ -113,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				BB3B21C22B02AF7E00A4B0D9 /* CustomNavigationController.swift */,
+				BBA699C52B067DDA00BA92A4 /* NYCSchoolOderByFieldButton.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -124,6 +141,7 @@
 				BB3B21B62B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift */,
 				BB7E8F252B03E37200C379A1 /* NYCSchoolMapViewController.swift */,
 				BBA699B02B05531800BA92A4 /* WebViewController.swift */,
+				BBA699BA2B065BCE00BA92A4 /* SortViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -204,6 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				BB5834852AFEC66F005014C9 /* NetworkError.swift */,
+				BBA699B42B064C6E00BA92A4 /* NYCSchoolSortKey.swift */,
+				BBA699BC2B0666BF00BA92A4 /* SortOrder.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -213,6 +233,7 @@
 			children = (
 				BB3B21BD2B028E0900A4B0D9 /* NYCSchoolDetailViewModel.swift */,
 				BB58348E2AFECD40005014C9 /* NYCListViewModel.swift */,
+				BBA699BF2B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -316,6 +337,7 @@
 				BBA699B32B0554D900BA92A4 /* HomepageURLView.swift in Sources */,
 				BB58348F2AFECD40005014C9 /* NYCListViewModel.swift in Sources */,
 				BBA699B12B05531800BA92A4 /* WebViewController.swift in Sources */,
+				BBA699C62B067DDA00BA92A4 /* NYCSchoolOderByFieldButton.swift in Sources */,
 				BB58347F2AFEC406005014C9 /* NYCSchool.swift in Sources */,
 				BB5834832AFEC5D6005014C9 /* NetworkManager.swift in Sources */,
 				BB3B21C32B02AF7E00A4B0D9 /* CustomNavigationController.swift in Sources */,
@@ -330,15 +352,21 @@
 				BBA699AD2B052AE100BA92A4 /* NYCSchoolStatsView.swift in Sources */,
 				BB5834882AFECA12005014C9 /* NYCSchoolService.swift in Sources */,
 				BB3B21B72B0288EC00A4B0D9 /* NYCSchoolDetailViewController.swift in Sources */,
+				BBA699C42B06771800BA92A4 /* FilterByView.swift in Sources */,
 				BB3B218F2B02612800A4B0D9 /* NYCTableViewCell.swift in Sources */,
 				BB7E8F2C2B040D6D00C379A1 /* CustomPointAnnotation.swift in Sources */,
+				BBA699BD2B0666BF00BA92A4 /* SortOrder.swift in Sources */,
 				BB58346A2AFEBDDA005014C9 /* AppDelegate.swift in Sources */,
+				BBA699BB2B065BCE00BA92A4 /* SortViewController.swift in Sources */,
 				BBA699AF2B0530B700BA92A4 /* HoursView.swift in Sources */,
 				BB58346C2AFEBDDA005014C9 /* SceneDelegate.swift in Sources */,
 				BB3B21C02B02AF1500A4B0D9 /* NSObject.swift in Sources */,
 				BB3B21D12B03A95500A4B0D9 /* NYCSchoolScoreView.swift in Sources */,
+				BBA699B52B064C6E00BA92A4 /* NYCSchoolSortKey.swift in Sources */,
 				BB3B21CF2B02C3E800A4B0D9 /* NYCSchoolScorreData.swift in Sources */,
+				BBA699C22B0669E300BA92A4 /* SortOrderView.swift in Sources */,
 				BB3B21B52B0285F000A4B0D9 /* Double.swift in Sources */,
+				BBA699C02B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift in Sources */,
 				BB7E8F222B03D57400C379A1 /* SearchResultsViewController.swift in Sources */,
 				BB58348D2AFECA9D005014C9 /* Constants.swift in Sources */,
 			);
