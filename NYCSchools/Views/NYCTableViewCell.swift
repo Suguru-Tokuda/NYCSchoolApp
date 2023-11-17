@@ -93,37 +93,50 @@ extension NYCTableViewCell {
         collegeCareerRateGroupView.addSubview(rateText)
         collegeCareerRateGroupView.addSubview(rateTextLabel)
         
+        contentView.addSubview(labelStackView)
+        
         labelStackView.addArrangedSubview(namesGroupView)
         labelStackView.addArrangedSubview(collegeCareerRateGroupView)
         
-        contentView.addSubview(labelStackView)
         
         applyConstraints()
     }
     
     private func applyConstraints() {
+        let padding: CGFloat = 10
+        
         let stackViewConstraints = [
-            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         ]
         
         let namesViewConstraints = [
-            namesGroupView.centerYAnchor.constraint(equalTo: labelStackView.topAnchor),
-            namesGroupView.leadingAnchor.constraint(equalTo: labelStackView.leadingAnchor)
+            namesGroupView.topAnchor.constraint(equalTo: labelStackView.topAnchor),
+            namesGroupView.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor),
+            namesGroupView.leadingAnchor.constraint(equalTo: labelStackView.leadingAnchor),
+            namesGroupView.trailingAnchor.constraint(equalTo: collegeCareerRateGroupView.leadingAnchor, constant: -10)
         ]
         
         let schoolNameLabelConstraints = [
             schoolNameLabel.topAnchor.constraint(equalTo: namesGroupView.topAnchor),
             schoolNameLabel.leadingAnchor.constraint(equalTo: namesGroupView.leadingAnchor),
-            schoolNameLabel.trailingAnchor.constraint(equalTo: namesGroupView.trailingAnchor, constant: -100)
+            schoolNameLabel.trailingAnchor.constraint(equalTo: namesGroupView.trailingAnchor, constant: -20)
         ]
         
+        schoolNameLabel.contentHuggingPriority(for: .vertical)
+        schoolNameLabel.setContentHuggingPriority(UILayoutPriority(252), for: .vertical)
+        
         let addressLabelConstraints = [
-            addressLabel.topAnchor.constraint(equalTo: schoolNameLabel.bottomAnchor, constant: 5)
+            addressLabel.topAnchor.constraint(equalTo: schoolNameLabel.bottomAnchor, constant: 5),
+            addressLabel.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor)
         ]
         
         let graduationGroupViewConstraints = [
+            collegeCareerRateGroupView.topAnchor.constraint(equalTo: labelStackView.topAnchor),
+            collegeCareerRateGroupView.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor),
+            collegeCareerRateGroupView.widthAnchor.constraint(equalToConstant: 75),
             collegeCareerRateGroupView.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor)
         ]
         

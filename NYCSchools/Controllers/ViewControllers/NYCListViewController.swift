@@ -150,11 +150,7 @@ extension NYCListViewController: UITableViewDataSource {
     }
 }
 
-extension NYCListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
-    }
-    
+extension NYCListViewController: UITableViewDelegate {   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         navigateToDetailsView(school: self.vm.nycSchools[indexPath.row])
