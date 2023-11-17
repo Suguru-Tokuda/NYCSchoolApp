@@ -48,6 +48,10 @@ extension HoursView {
     }
     
     private func applyConstraints() {
+        let viewConstraints = [
+            heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -60,6 +64,7 @@ extension HoursView {
             hoursLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
         
+        NSLayoutConstraint.activate(viewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(hoursLabelConstraints)
     }
