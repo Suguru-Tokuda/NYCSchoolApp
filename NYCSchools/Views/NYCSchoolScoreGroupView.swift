@@ -29,6 +29,18 @@ class NYCSchoolScoreGroupView: UIView {
 extension NYCSchoolScoreGroupView {
     private func setupUI() {
         self.addSubview(stackView)
+        applyConstraints()
+    }
+    
+    private func applyConstraints() {
+        let stackViewConstraints = [
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(stackViewConstraints)
     }
         
     func configure(scoreData: NYCSchoolScorreData) {
