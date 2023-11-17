@@ -9,10 +9,10 @@ import UIKit
 import MapKit
 
 class NYCSchoolMapViewController: UIViewController {
-    var listVM: NYCListViewModel = NYCListViewModel()
-    var mapVM: NYCSchoolDetailViewModel = NYCSchoolDetailViewModel()
+    var listVM: NYCListViewModel! = NYCListViewModel()
+    var mapVM: NYCSchoolDetailViewModel! = NYCSchoolDetailViewModel()
     
-    let mapView: MKMapView = {
+    var mapView: MKMapView! = {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.overrideUserInterfaceStyle = .dark
@@ -28,6 +28,12 @@ class NYCSchoolMapViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mapView.frame = view.bounds
+    }
+    
+    deinit {
+        mapView = nil
+        listVM = nil
+        mapVM = nil
     }
 }
 
