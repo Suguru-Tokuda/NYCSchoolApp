@@ -43,10 +43,9 @@ class FilterByView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         btn.setTitleColor(.label, for: .normal)
-        btn.titleLabel?.backgroundColor = .systemBackground
-        btn.titleLabel?.layer.borderColor = UIColor.systemBlue.cgColor
-        btn.titleLabel?.layer.borderWidth = 1
-        btn.titleLabel?.layer.cornerRadius = 5
+        btn.layer.borderColor = UIColor.systemBlue.cgColor
+        btn.layer.borderWidth = 1
+        btn.layer.cornerRadius = 5
         btn.titleLabel?.textAlignment = .center
         btn.titleLabel?.adjustsFontSizeToFitWidth = true
         
@@ -93,7 +92,6 @@ extension FilterByView {
         btn.addTarget(self, action: #selector(handleBtnTap(_ :)), for: .touchUpInside)
         btn.orderByField = option
         btn.titleLabel?.textColor = selectedOption == option ? .white : .label
-        btn.titleLabel?.backgroundColor = selectedOption == option ? .systemBlue : .clear
         
         keyOptionDict[option] = btn
         view.addSubview(btn)
@@ -121,11 +119,11 @@ extension FilterByView {
             btn.titleLabel?.heightAnchor.constraint(equalToConstant: 50).isActive = true
             
             if i % 2 == 0 {
-                btn.titleLabel?.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
-                btn.titleLabel?.trailingAnchor.constraint(equalTo: stackView.centerXAnchor, constant: -padding).isActive = true
+                btn.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: padding).isActive = true
+                btn.trailingAnchor.constraint(equalTo: stackView.centerXAnchor, constant: -padding).isActive = true
             } else {
-                btn.titleLabel?.leadingAnchor.constraint(equalTo: stackView.centerXAnchor, constant: padding).isActive = true
-                btn.titleLabel?.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
+                btn.leadingAnchor.constraint(equalTo: stackView.centerXAnchor, constant: padding).isActive = true
+                btn.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -padding).isActive = true
             }
         }
     }
@@ -135,7 +133,7 @@ extension FilterByView {
     func setSelectedValue(sortKey: NYCSchoolSortKey) {
         self.selectedOption = sortKey
         keyOptionDict.forEach { (key, btn) in
-            btn.titleLabel?.backgroundColor = key == sortKey ? .systemBlue : .clear
+            btn.layer.backgroundColor = (key == sortKey ? UIColor.systemBlue : UIColor.clear).cgColor
             btn.setTitleColor(key == sortKey ? .white : .label, for: .normal)
         }
     }

@@ -24,14 +24,14 @@ class SortOrderView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(SortOrder.asc.rawValue, for: .normal)
         btn.setTitleColor(.label, for: .normal)
-        btn.setImage(UIImage(systemName: "arrow.up"), for: .normal)
+        btn.setImage(UIImage(systemName: "arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        btn.titleLabel?.backgroundColor = .systemBackground
-        btn.titleLabel?.layer.borderColor = UIColor.systemBlue.cgColor
-        btn.titleLabel?.layer.borderWidth = 1
-        btn.titleLabel?.layer.cornerRadius = 5
         btn.titleLabel?.textAlignment = .center
         btn.titleLabel?.adjustsFontSizeToFitWidth = true
+        btn.layer.borderWidth = 1
+        btn.layer.cornerRadius = 5
+        btn.layer.borderColor = UIColor.systemBlue.cgColor
+        
         return btn
     }()
     
@@ -40,14 +40,14 @@ class SortOrderView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(SortOrder.dsc.rawValue, for: .normal)
         btn.setTitleColor(.label, for: .normal)
-        btn.setImage(UIImage(systemName: "arrow.down"), for: .normal)
+        btn.setImage(UIImage(systemName: "arrow.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        btn.titleLabel?.backgroundColor = .systemBackground
-        btn.titleLabel?.layer.borderColor = UIColor.systemBlue.cgColor
-        btn.titleLabel?.layer.borderWidth = 1
-        btn.titleLabel?.layer.cornerRadius = 5
         btn.titleLabel?.textAlignment = .center
         btn.titleLabel?.adjustsFontSizeToFitWidth = true
+        btn.layer.borderWidth = 1
+        btn.layer.cornerRadius = 5
+        btn.layer.borderColor = UIColor.systemBlue.cgColor
+
         return btn
     }()
 
@@ -83,39 +83,35 @@ extension SortOrderView {
         ]
         
         let ascBtnConstraints = [
-            ascBtn.titleLabel?.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
-            ascBtn.titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            ascBtn.titleLabel?.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -padding),
-            ascBtn.titleLabel?.heightAnchor.constraint(equalToConstant: height)
+            ascBtn.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
+            ascBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            ascBtn.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -padding),
+            ascBtn.heightAnchor.constraint(equalToConstant: height)
         ]
         
         let dscBtnConstraints = [
-            dscBtn.titleLabel?.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
-            dscBtn.titleLabel?.leadingAnchor.constraint(equalTo: centerXAnchor, constant: padding),
-            dscBtn.titleLabel?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            dscBtn.titleLabel?.heightAnchor.constraint(equalToConstant: height)
+            dscBtn.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
+            dscBtn.leadingAnchor.constraint(equalTo: centerXAnchor, constant: padding),
+            dscBtn.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            dscBtn.heightAnchor.constraint(equalToConstant: height)
         ]
         
         NSLayoutConstraint.activate(titleLabelConstraints)
-        
-        (ascBtnConstraints + dscBtnConstraints).forEach { constraint in
-            if let constraint {
-                NSLayoutConstraint.activate([constraint])
-            }
-        }
+        NSLayoutConstraint.activate(ascBtnConstraints)
+        NSLayoutConstraint.activate(dscBtnConstraints)
     }
     
     func setSelectedValue(sortOrder: SortOrder) {
         switch sortOrder {
         case .asc:
-            ascBtn.titleLabel?.backgroundColor = .systemBlue
+            ascBtn.layer.backgroundColor = UIColor.systemBlue.cgColor
             ascBtn.setTitleColor(.white, for: .normal)
-            dscBtn.titleLabel?.backgroundColor = .clear
+            dscBtn.layer.backgroundColor = UIColor.clear.cgColor
             dscBtn.setTitleColor(.label, for: .normal)
         case .dsc:
-            dscBtn.titleLabel?.backgroundColor = .systemBlue
+            dscBtn.layer.backgroundColor = UIColor.systemBlue.cgColor
             dscBtn.setTitleColor(.white, for: .normal)
-            ascBtn.titleLabel?.backgroundColor = .clear
+            ascBtn.layer.backgroundColor = UIColor.clear.cgColor
             ascBtn.setTitleColor(.label, for: .normal)
         }
     }
