@@ -13,7 +13,11 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = .systemBackground
 
         let vc1 = CustomNavigationController(rootViewController: NYCListViewController())
+        vc1.navigationBar.tintColor = .label
+        vc1.identifier = "NYCListViewController"
         let vc2 = CustomNavigationController(rootViewController: NYCSchoolMapViewController())
+        vc2.navigationBar.tintColor = .label
+        vc2.identifier = "NYCSchoolMapViewController"
         
         vc1.tabBarItem.image = UIImage(systemName: "list.bullet")
         vc2.tabBarItem.image = UIImage(systemName: "map.fill")
