@@ -15,7 +15,8 @@ class NYCListViewModel {
     private var limit: Int = 20
     private var currentOffset: Int = 0
     private var allDataLoaded: Bool = false
-    var orderKey: String = "graduation_rate"
+    var sortkey: NYCSchoolSortKey = .collegeCareerRate
+    var sortOrder: SortOrder = .dsc
     var nycSchools: [NYCSchool] = []
     var filteredNycSchools: [NYCSchool] = []
     private var nycSchoolService: NYCSchoolService?
@@ -30,7 +31,7 @@ class NYCListViewModel {
     func getNYCSchools() async {
         if !allDataLoaded {
             do {
-                let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, order: orderKey)
+                let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, sortKey: sortkey, sortOrder: sortOrder)
                 
                 if let schools,
                    !schools.isEmpty {
@@ -56,6 +57,15 @@ class NYCListViewModel {
         } catch {
             self.getNYCSchoolsCompletionHandler?(error)
         }
+    }
+    
+    func resetAndGetSchools(sortKey: NYCSchoolSortKey, sortOrder: SortOrder) async {
+        allDataLoaded = false
+        currentOffset = 0
+        nycSchools = []
+        self.sortkey = sortKey
+        self.sortOrder = sortOrder
+        await getNYCSchools()
     }
     
     /**
