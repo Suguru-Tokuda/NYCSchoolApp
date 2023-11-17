@@ -22,9 +22,9 @@ class NYCSchoolService {
         }
     }
     
-    func getNYCSchools(limit: Int, offset: Int, order: String, urlStr: String = Constants.nycSchoolEndpoint) async throws -> [NYCSchool] {
+    func getNYCSchools(limit: Int, offset: Int, sortKey: NYCSchoolSortKey, sortOrder: SortOrder, urlStr: String = Constants.nycSchoolEndpoint) async throws -> [NYCSchool] {
         do {
-            return try await networkManager.getData(urlStr: "\(urlStr)?$limit=\(limit)&$offset=\(offset)&$order=\(order)", type: [NYCSchool].self)
+            return try await networkManager.getData(urlStr: "\(urlStr)?$limit=\(limit)&$offset=\(offset)&$order=\(sortKey.getAPIFieldName()) \(sortOrder.getSortOrderStr())&$where=\(sortKey.getAPIFieldName()) IS NOT NULL", type: [NYCSchool].self)
         } catch {
             throw error
         }
