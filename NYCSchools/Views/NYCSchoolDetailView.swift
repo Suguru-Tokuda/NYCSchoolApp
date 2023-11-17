@@ -10,54 +10,59 @@ import UIKit
 class NYCSchoolDetailView: UIView {
     weak var delegate: NYCSchoolHomepageURLTapDelegate?
     
-    private let scrollView: UIScrollView = {
+    private var scrollView: UIScrollView! = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    private let contentView: UIView = {
+    private var contentView: UIView! = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let stackView: UIStackView = {
+    private var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
+        stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    private let schoolNameLabel: UILabel = {
+    private var schoolNameLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let addressLabel: UILabel = {
+    private var addressLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let hoursView: HoursView = {
+    private var hoursView: HoursView! = {
         let hoursView = HoursView()
         hoursView.translatesAutoresizingMaskIntoConstraints = false
         return hoursView
     }()
     
-    private let urlView: HomepageURLView = {
+    private var urlView: HomepageURLView! = {
         let urlView = HomepageURLView()
         urlView.translatesAutoresizingMaskIntoConstraints = false
         return urlView
     }()
     
-    private let statsLabel: UILabel = {
+    private var statsLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -65,19 +70,19 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private let statsView: NYCSchoolStatsView = {
+    private var statsView: NYCSchoolStatsView! = {
         let statsView = NYCSchoolStatsView()
         statsView.translatesAutoresizingMaskIntoConstraints = false
         return statsView
     }()
     
-    private let scoreLabelGroup: NYCSchoolScoreGroupView = {
+    private var scoreLabelGroup: NYCSchoolScoreGroupView! = {
         let groupView = NYCSchoolScoreGroupView()
         groupView.translatesAutoresizingMaskIntoConstraints = false
         return groupView
     }()
     
-    private let overviewParagraphLabel: UILabel = {
+    private var overviewParagraphLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,13 +90,37 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private let overviewParagraph: UILabel = {
+    private var overviewParagraph: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private var academicOpportunitiesView: TitleBulletPointsView! = {
+        let view = TitleBulletPointsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var programsView: TitleBulletPointsView! = {
+        let view = TitleBulletPointsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var interestsView: TitleBulletPointsView! = {
+        let view = TitleBulletPointsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var methodsView: TitleBulletPointsView! = {
+        let view = TitleBulletPointsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -107,7 +136,6 @@ class NYCSchoolDetailView: UIView {
 extension NYCSchoolDetailView {
     private func setupUI() {
         backgroundColor = .systemBackground
-
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -122,6 +150,10 @@ extension NYCSchoolDetailView {
         stackView.addArrangedSubview(statsView)
         stackView.addArrangedSubview(overviewParagraphLabel)
         stackView.addArrangedSubview(overviewParagraph)
+        stackView.addArrangedSubview(academicOpportunitiesView)
+        stackView.addArrangedSubview(programsView)
+        stackView.addArrangedSubview(interestsView)
+        stackView.addArrangedSubview(methodsView)
         
         urlView.linkTapped = { urlStr in
             self.delegate?.nycSchoolHomepageURLTap(urlStr: urlStr)            
@@ -155,35 +187,25 @@ extension NYCSchoolDetailView {
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
         
-        let hoursViewConstraints = [
-            hoursView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            hoursView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            hoursView.heightAnchor.constraint(equalToConstant: 50)
-        ]
-        
-        let urlViewConstraints = [
+        let homepageViewConstraints = [
             urlView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            urlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            urlView.heightAnchor.constraint(equalToConstant: 50)
+            urlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         
         let scoreLableGroupConstraints = [
             scoreLabelGroup.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            scoreLabelGroup.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            scoreLabelGroup.heightAnchor.constraint(equalToConstant: 50)
+            scoreLabelGroup.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         
         let statsViewConstraints = [
             statsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            statsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            statsView.heightAnchor.constraint(equalToConstant: 50)
+            statsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(contentViewConstraints)
         NSLayoutConstraint.activate(stackViewContainerConstraints)
-        NSLayoutConstraint.activate(hoursViewConstraints)
-        NSLayoutConstraint.activate(urlViewConstraints)
+        NSLayoutConstraint.activate(homepageViewConstraints)
         NSLayoutConstraint.activate(scoreLableGroupConstraints)
         NSLayoutConstraint.activate(statsViewConstraints)
     }
@@ -225,34 +247,33 @@ extension NYCSchoolDetailView {
         
         // add academic opportunities
         if !school.acamidecOpportunties.isEmpty {
-            let academicOpportunitiesView = TitleBulletPointsView()
-            academicOpportunitiesView.translatesAutoresizingMaskIntoConstraints = false
             academicOpportunitiesView.configure(title: "Academic Opportunities", contents: school.acamidecOpportunties)
-            academicOpportunitiesView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200).isActive = true
-            stackView.addArrangedSubview(academicOpportunitiesView)
+        } else {
+            academicOpportunitiesView.isHidden = true
         }
         
         // add programs
         if !school.programs.isEmpty {
-            let programsView = TitleBulletPointsView()
             programsView.configure(title: "Programs", contents: school.programs)
-            programsView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-            stackView.addArrangedSubview(programsView)
+        } else {
+            programsView.isHidden = true
         }
         
         // add interests
         if !school.interests.isEmpty {
-            let interestsView = TitleBulletPointsView()
             interestsView.configure(title: "Interests", contents: school.interests)
-            interestsView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            stackView.addArrangedSubview(interestsView)
+        } else {
+            interestsView.isHidden = true
         }
         
         if !school.methods.isEmpty {
-            let methodsView = TitleBulletPointsView()
             methodsView.configure(title: "Methods", contents: school.methods)
-            methodsView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-            stackView.addArrangedSubview(methodsView)
+        } else {
+            methodsView.isHidden = true
         }
+    }
+    
+    func setUrlViewIsHidden(isHidden: Bool) {
+        urlView.isHidden = isHidden
     }
 }
