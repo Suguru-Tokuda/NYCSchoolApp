@@ -66,7 +66,8 @@ extension TitleBulletPointsView {
         let listStackViewCostraints = [
             listStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             listStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            listStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            listStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            listStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(titleLabelConstraints)
@@ -80,5 +81,9 @@ extension TitleBulletPointsView {
         // add contents
         listStackView.subviews.forEach { listStackView.removeArrangedSubview($0) }
         contents.forEach { listStackView.addArrangedSubview(getContentLabel(text: "\u{2022} \($0)"))}
+//        
+//        let height: CGFloat  = 50 * CGFloat(contents.count)
+//        
+//        self.heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }
