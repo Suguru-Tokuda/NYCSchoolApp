@@ -10,7 +10,7 @@ import WebKit
 
 class WebViewController: UIViewController {
     var urlStr: String = ""
-    private let webView: WKWebView = {
+    private var webView: WKWebView! = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
@@ -34,15 +34,23 @@ class WebViewController: UIViewController {
         setupUI()
         
         if !urlStr.isEmpty {
-            if !urlStr.contains("https://") {
+            if !urlStr.contains("http") {
                 urlStr = "https://\(urlStr)"
             }
 
             if let url = URL(string: urlStr) {
-                webView.load(URLRequest(url: url))
+                webView?.load(URLRequest(url: url))
             }
         }        
-    }    
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        webView = nil
+    }
+    
+    deinit {
+        webView = nil
+    }
 }
 
 extension WebViewController {
