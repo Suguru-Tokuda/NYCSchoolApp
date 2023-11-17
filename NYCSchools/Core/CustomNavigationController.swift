@@ -9,6 +9,7 @@ import UIKit
 
 class CustomNavigationController: UINavigationController {
     var isNewViewControllerBeingPushed: Bool = false
+    var identifier: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
