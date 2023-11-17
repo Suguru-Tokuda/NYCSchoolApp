@@ -13,18 +13,18 @@ protocol NYCSchoolHomepageURLTapDelegate: AnyObject {
 }
 
 class NYCSchoolDetailViewController: UIViewController {
-    var vm: NYCSchoolDetailViewModel = NYCSchoolDetailViewModel()
+    var vm: NYCSchoolDetailViewModel! = NYCSchoolDetailViewModel()
     var isSheet: Bool = false
     var sheetDismissed: (() -> ())?
     
-    let mapView: MKMapView = {
+    private var mapView: MKMapView! = {
         let mapView = MKMapView()
         mapView.overrideUserInterfaceStyle = .dark
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
     
-    let detailsViewContainer: NYCSchoolDetailView = {
+    private var detailsViewContainer: NYCSchoolDetailView! = {
         let view = NYCSchoolDetailView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -46,12 +46,14 @@ class NYCSchoolDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = .label
         
         if isSheet {
             if let presentationController = presentationController as? UISheetPresentationController {
                 presentationController.delegate = self
                 presentationController.detents = [
-                    .medium()
+                    .medium(),
+                    .large()
                 ]
                 presentationController.prefersGrabberVisible = true
                 setupUIForSheetView()
@@ -64,6 +66,17 @@ class NYCSchoolDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        vm = nil
+        mapView = nil
+        detailsViewContainer = nil
+    }
+    
+    deinit {
+        vm = nil
     }
 }
 
@@ -84,6 +97,7 @@ extension NYCSchoolDetailViewController {
     
     private func setupUIForSheetView() {
         view.addSubview(detailsViewContainer)
+        detailsViewContainer.setUrlViewIsHidden(isHidden: true)
         applyConstraintsForSheetView()
     }
     
