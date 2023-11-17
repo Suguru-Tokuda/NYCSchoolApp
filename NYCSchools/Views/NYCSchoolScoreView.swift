@@ -46,6 +46,10 @@ extension NYCSchoolScoreView {
     }
     
     private func applyConstraints() {
+        let viewConstraints = [
+            heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
         let scoreTextConstraints = [
             scoreText.topAnchor.constraint(equalTo: topAnchor),
             scoreText.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -58,6 +62,7 @@ extension NYCSchoolScoreView {
             scoreLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
         
+        NSLayoutConstraint.activate(viewConstraints)
         NSLayoutConstraint.activate(scoreTextConstraints)
         NSLayoutConstraint.activate(scoreLabelConstraints)
     }
