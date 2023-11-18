@@ -20,7 +20,9 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        // register cells
         tableView.register(NYCTableViewCell.self, forCellReuseIdentifier: NYCTableViewCell.identifier)
+        tableView.register(NYCSchoolTableLoadingViewCell.self, forCellReuseIdentifier: NYCSchoolTableLoadingViewCell.identifier)
         return tableView
     }()
     
@@ -126,23 +128,47 @@ extension NYCListViewController {
 
 extension NYCListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.nycSchools.count
+        switch section {
+        case 0:
+            return vm.nycSchools.count
+        case 1:
+            return vm.isLoading ? 1 : 0
+        default:
+            return 0
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NYCTableViewCell.identifier, for: indexPath) as? NYCTableViewCell else {
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NYCTableViewCell.identifier, for: indexPath) as? NYCTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            if vm.nycSchools.count > indexPath.row {
+                cell.configure(nycSchool: vm.nycSchools[indexPath.row], sortKey: vm.sortkey)
+            }
+            
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NYCSchoolTableLoadingViewCell.identifier, for: indexPath) as? NYCSchoolTableLoadingViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.setupUI()
+                        
+            return cell
+        default:
             return UITableViewCell()
         }
-        
-        if vm.nycSchools.count > indexPath.row {
-            cell.configure(nycSchool: vm.nycSchools[indexPath.row], sortKey: vm.sortkey)
-        }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == vm.nycSchools.count {
+        if indexPath.section == 0 && indexPath.row + 1 == vm.nycSchools.count {
             Task {
                 await vm.getNYCSchools()
             }
@@ -153,7 +179,9 @@ extension NYCListViewController: UITableViewDataSource {
 extension NYCListViewController: UITableViewDelegate {   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        navigateToDetailsView(school: self.vm.nycSchools[indexPath.row])
+        if indexPath.section == 0 {
+            navigateToDetailsView(school: self.vm.nycSchools[indexPath.row])
+        }
     }
 }
 

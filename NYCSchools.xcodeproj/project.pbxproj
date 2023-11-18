@@ -32,6 +32,7 @@
 		BB7E8F262B03E37200C379A1 /* NYCSchoolMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7E8F252B03E37200C379A1 /* NYCSchoolMapViewController.swift */; };
 		BB7E8F282B03E49300C379A1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7E8F272B03E49300C379A1 /* MainTabBarController.swift */; };
 		BB7E8F2C2B040D6D00C379A1 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7E8F2B2B040D6D00C379A1 /* CustomPointAnnotation.swift */; };
+		BB88DF062B08F72E0065FD01 /* NYCSchoolTableLoadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB88DF052B08F72E0065FD01 /* NYCSchoolTableLoadingViewCell.swift */; };
 		BBA699AB2B04FE3700BA92A4 /* TitleBulletPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */; };
 		BBA699AD2B052AE100BA92A4 /* NYCSchoolStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */; };
 		BBA699AF2B0530B700BA92A4 /* HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA699AE2B0530B700BA92A4 /* HoursView.swift */; };
@@ -74,6 +75,7 @@
 		BB7E8F252B03E37200C379A1 /* NYCSchoolMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolMapViewController.swift; sourceTree = "<group>"; };
 		BB7E8F272B03E49300C379A1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BB7E8F2B2B040D6D00C379A1 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
+		BB88DF052B08F72E0065FD01 /* NYCSchoolTableLoadingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolTableLoadingViewCell.swift; sourceTree = "<group>"; };
 		BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBulletPointsView.swift; sourceTree = "<group>"; };
 		BBA699AC2B052AE100BA92A4 /* NYCSchoolStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCSchoolStatsView.swift; sourceTree = "<group>"; };
 		BBA699AE2B0530B700BA92A4 /* HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				BB3B218E2B02612800A4B0D9 /* NYCTableViewCell.swift */,
 				BBA699C12B0669E300BA92A4 /* SortOrderView.swift */,
 				BBA699AA2B04FE3700BA92A4 /* TitleBulletPointsView.swift */,
+				BB88DF052B08F72E0065FD01 /* NYCSchoolTableLoadingViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				BBA699C22B0669E300BA92A4 /* SortOrderView.swift in Sources */,
 				BB3B21B52B0285F000A4B0D9 /* Double.swift in Sources */,
 				BBA699C02B0666FF00BA92A4 /* NYCSchoolSortViewModel.swift in Sources */,
+				BB88DF062B08F72E0065FD01 /* NYCSchoolTableLoadingViewCell.swift in Sources */,
 				BB7E8F222B03D57400C379A1 /* SearchResultsViewController.swift in Sources */,
 				BB58348D2AFECA9D005014C9 /* Constants.swift in Sources */,
 			);
