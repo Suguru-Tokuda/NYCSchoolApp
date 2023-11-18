@@ -123,8 +123,8 @@ extension NYCSchoolDetailViewController {
     private func applyConstraintsForSheetView() {
         let detailsViewConstraints = [
             detailsViewContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            detailsViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            detailsViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            detailsViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailsViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             detailsViewContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
         ]
         
