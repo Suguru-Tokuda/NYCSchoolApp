@@ -44,6 +44,8 @@ extension NYCSchoolTableLoadingViewCell {
     
     private func applyConstraints() {
         let spinnerConstraints = [
+            spinner.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            spinner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
