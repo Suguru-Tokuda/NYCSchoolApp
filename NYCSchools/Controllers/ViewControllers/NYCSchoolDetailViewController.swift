@@ -17,14 +17,14 @@ class NYCSchoolDetailViewController: UIViewController {
     var isSheet: Bool = false
     var sheetDismissed: (() -> ())?
     
-    private var mapView: MKMapView! = {
+    private lazy var mapView: MKMapView! = {
         let mapView = MKMapView()
         mapView.overrideUserInterfaceStyle = .dark
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
     
-    private var detailsViewContainer: NYCSchoolDetailView! = {
+    private lazy var detailsViewContainer: NYCSchoolDetailView! = {
         let view = NYCSchoolDetailView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

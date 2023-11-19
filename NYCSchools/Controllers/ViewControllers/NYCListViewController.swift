@@ -11,13 +11,13 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     var vm: NYCListViewModel! = NYCListViewModel()
     var sortVC: SortViewController?
     
-    private var searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
         controller.searchBar.placeholder = "Search by school name..."
         return controller
     }()
     
-    private var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         // register cells

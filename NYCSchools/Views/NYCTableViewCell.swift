@@ -10,7 +10,7 @@ import UIKit
 class NYCTableViewCell: UITableViewCell {
     static let identifier = "NYCTableViewCell"
     
-    private let schoolNameLabel: UILabel = {
+    private lazy var schoolNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -19,7 +19,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let addressLabel: UILabel = {
+    private lazy var addressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -28,13 +28,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let namesGroupView: UIView = {
+    private lazy var namesGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let rateText: UILabel = {
+    private lazy var rateText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.lineBreakMode = .byWordWrapping
@@ -43,7 +43,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let rateTextLabel: UILabel = {
+    private lazy var rateTextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
         label.lineBreakMode = .byWordWrapping
@@ -53,13 +53,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let collegeCareerRateGroupView: UIView = {
+    private lazy var collegeCareerRateGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let labelStackView: UIStackView = {
+    private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalCentering

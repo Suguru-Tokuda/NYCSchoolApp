@@ -8,7 +8,7 @@
 import UIKit
 
 class NYCSchoolScoreView: UIView {   
-    private let scoreText: UILabel = {
+    private lazy var scoreText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
@@ -17,7 +17,7 @@ class NYCSchoolScoreView: UIView {
         return label
     }()
     
-    private let scoreLabel: UILabel = {
+    private lazy var scoreLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.numberOfLines = 0

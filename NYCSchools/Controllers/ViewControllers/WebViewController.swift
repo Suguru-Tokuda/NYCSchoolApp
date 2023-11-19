@@ -10,7 +10,7 @@ import WebKit
 
 class WebViewController: UIViewController {
     var urlStr: String = ""
-    private var webView: WKWebView! = {
+    private lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
@@ -39,17 +39,9 @@ class WebViewController: UIViewController {
             }
 
             if let url = URL(string: urlStr) {
-                webView?.load(URLRequest(url: url))
+                webView.load(URLRequest(url: url))
             }
         }        
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        webView = nil
-    }
-    
-    deinit {
-        webView = nil
     }
 }
 

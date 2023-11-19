@@ -8,7 +8,7 @@
 import UIKit
 
 class NYCSchoolStatsView: UIView {
-    private let stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually

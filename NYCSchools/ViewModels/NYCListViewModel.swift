@@ -32,56 +32,41 @@ class NYCListViewModel {
     func getNYCSchools() async {
         if !allDataLoaded {
             do {
-                DispatchQueue.main.async {
-                    self.isLoading = true
-                }
+                self.isLoading = true
                 
                 let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, sortKey: sortkey, sortOrder: sortOrder)
-                
-                DispatchQueue.main.async {
-                    if let schools,
-                       !schools.isEmpty {
-                        self.nycSchools += schools
-                        self.currentOffset += self.limit
-                    } else {
-                        self.allDataLoaded = true
-                    }
-                    self.getNYCSchoolsCompletionHandler?(nil)
-                    
-                    self.isLoading = false
+                if let schools,
+                   !schools.isEmpty {
+                    nycSchools += schools
+                    currentOffset += self.limit
+                } else {
+                    allDataLoaded = true
                 }
+
+                getNYCSchoolsCompletionHandler?(nil)
+                isLoading = false
             } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.getNYCSchoolsCompletionHandler?(error)
-                }
+                isLoading = false
+                getNYCSchoolsCompletionHandler?(error)
             }
         }
     }
     
     func getAllNYCSchools() async {
         do {
-            DispatchQueue.main.async {
-                self.isLoading = true
-            }
+            isLoading = true
 
             if let schools = try await nycSchoolService?.getAllNYCSchools() {
-                DispatchQueue.main.async {
-                    self.filteredNycSchools = []
-                    self.nycSchools = schools
-                    self.getNYCSchoolsCompletionHandler?(nil)
-                    self.isLoading = false
-                }
+                filteredNycSchools = []
+                nycSchools = schools
+                getNYCSchoolsCompletionHandler?(nil)
+                isLoading = false
             } else {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                }
+                isLoading = false
             }
         } catch {
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.getNYCSchoolsCompletionHandler?(error)
-            }
+            isLoading = false
+            getNYCSchoolsCompletionHandler?(error)
         }
     }
     

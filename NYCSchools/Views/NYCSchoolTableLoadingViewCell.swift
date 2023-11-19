@@ -10,7 +10,7 @@ import UIKit
 class NYCSchoolTableLoadingViewCell: UITableViewCell {
     static let identifier = "NYCSchoolTableLoadingViewCell"
     
-    private var spinner: UIActivityIndicatorView = {
+    private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.hidesWhenStopped = true

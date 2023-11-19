@@ -10,7 +10,7 @@ import UIKit
 class HomepageURLView: UIView {
     var linkTapped: ((String) -> ())?
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -20,7 +20,7 @@ class HomepageURLView: UIView {
         return label
     }()
         
-    private let urlBtn: UIButton = {
+    private lazy var urlBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.numberOfLines = 0
         btn.titleLabel?.lineBreakMode = .byWordWrapping

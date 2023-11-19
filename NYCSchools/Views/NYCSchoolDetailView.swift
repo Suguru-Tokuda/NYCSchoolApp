@@ -10,19 +10,19 @@ import UIKit
 class NYCSchoolDetailView: UIView {
     weak var delegate: NYCSchoolHomepageURLTapDelegate?
     
-    private var scrollView: UIScrollView! = {
+    private lazy var scrollView: UIScrollView! = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    private var contentView: UIView! = {
+    private lazy var contentView: UIView! = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var stackView: UIStackView! = {
+    private lazy var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -32,7 +32,7 @@ class NYCSchoolDetailView: UIView {
         return stackView
     }()
     
-    private var schoolNameLabel: UILabel! = {
+    private lazy var schoolNameLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
@@ -41,7 +41,7 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private var addressLabel: UILabel! = {
+    private lazy var addressLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
@@ -50,19 +50,19 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private var hoursView: HoursView! = {
+    private lazy var hoursView: HoursView! = {
         let hoursView = HoursView()
         hoursView.translatesAutoresizingMaskIntoConstraints = false
         return hoursView
     }()
     
-    private var urlView: HomepageURLView! = {
+    private lazy var urlView: HomepageURLView! = {
         let urlView = HomepageURLView()
         urlView.translatesAutoresizingMaskIntoConstraints = false
         return urlView
     }()
     
-    private var statsLabel: UILabel! = {
+    private lazy var statsLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -70,19 +70,19 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private var statsView: NYCSchoolStatsView! = {
+    private lazy var statsView: NYCSchoolStatsView! = {
         let statsView = NYCSchoolStatsView()
         statsView.translatesAutoresizingMaskIntoConstraints = false
         return statsView
     }()
     
-    private var scoreLabelGroup: NYCSchoolScoreGroupView! = {
+    private lazy var scoreLabelGroup: NYCSchoolScoreGroupView! = {
         let groupView = NYCSchoolScoreGroupView()
         groupView.translatesAutoresizingMaskIntoConstraints = false
         return groupView
     }()
     
-    private var overviewParagraphLabel: UILabel! = {
+    private lazy var overviewParagraphLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +90,7 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private var overviewParagraph: UILabel! = {
+    private lazy var overviewParagraph: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.lineBreakMode = .byWordWrapping
@@ -99,25 +99,25 @@ class NYCSchoolDetailView: UIView {
         return label
     }()
     
-    private var academicOpportunitiesView: TitleBulletPointsView! = {
+    private lazy var academicOpportunitiesView: TitleBulletPointsView! = {
         let view = TitleBulletPointsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var programsView: TitleBulletPointsView! = {
+    private lazy var programsView: TitleBulletPointsView! = {
         let view = TitleBulletPointsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var interestsView: TitleBulletPointsView! = {
+    private lazy var interestsView: TitleBulletPointsView! = {
         let view = TitleBulletPointsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var methodsView: TitleBulletPointsView! = {
+    private lazy var methodsView: TitleBulletPointsView! = {
         let view = TitleBulletPointsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

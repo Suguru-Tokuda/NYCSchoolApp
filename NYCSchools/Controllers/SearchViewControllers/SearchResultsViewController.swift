@@ -15,7 +15,7 @@ class SearchResultsViewController: UIViewController {
     var vm: NYCListViewModel = NYCListViewModel()
     weak var delegate: SearchResultsViewControllerDelegate?
 
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NYCTableViewCell.self, forCellReuseIdentifier: NYCTableViewCell.identifier)
@@ -64,12 +64,9 @@ extension SearchResultsViewController: NYCSchoolListSearchDelegate {
 }
 
 extension SearchResultsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Task {
+            tableView.deselectRow(at: indexPath, animated: true)
             let school = self.vm.filteredNycSchools[indexPath.row]
             self.delegate?.searchResultsViewControllerDidTapItem(school: school)
         }

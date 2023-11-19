@@ -8,7 +8,7 @@
 import UIKit
 
 class TitleBulletPointsView: UIView {
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -17,7 +17,7 @@ class TitleBulletPointsView: UIView {
         return label
     }()
     
-    private let listStackView: UIStackView = {
+    private lazy var listStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,9 +81,5 @@ extension TitleBulletPointsView {
         // add contents
         listStackView.subviews.forEach { listStackView.removeArrangedSubview($0) }
         contents.forEach { listStackView.addArrangedSubview(getContentLabel(text: "\u{2022} \($0)"))}
-//        
-//        let height: CGFloat  = 50 * CGFloat(contents.count)
-//        
-//        self.heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }
