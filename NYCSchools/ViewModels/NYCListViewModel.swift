@@ -34,8 +34,6 @@ class NYCListViewModel {
             do {
                 self.isLoading = true
                 
-                print("currentOffset: \(currentOffset)")
-                
                 let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, sortKey: sortkey, sortOrder: sortOrder)
                 if let schools,
                    !schools.isEmpty {
