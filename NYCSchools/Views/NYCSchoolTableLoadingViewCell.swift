@@ -38,11 +38,16 @@ class NYCSchoolTableLoadingViewCell: UITableViewCell {
 extension NYCSchoolTableLoadingViewCell {
     func setupUI() {
         contentView.addSubview(spinner)
+        spinner.startAnimating()
         applyConstraints()
     }
     
     private func applyConstraints() {
-        spinner.startAnimating()
-        spinner.center = center
+        let spinnerConstraints = [
+            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(spinnerConstraints)
     }
 }

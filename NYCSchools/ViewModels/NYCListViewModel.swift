@@ -14,8 +14,9 @@ protocol NYCSchoolListSearchDelegate: AnyObject {
 class NYCListViewModel {
     private var limit: Int = 20
     private var currentOffset: Int = 0
-    private var allDataLoaded: Bool = false
+    var allDataLoaded: Bool = false
     var isLoading: Bool = false
+    var isDisplayingLoadingIndicator: Bool = false
     var sortkey: NYCSchoolSortKey = .collegeCareerRate
     var sortOrder: SortOrder = .dsc
     var nycSchools: [NYCSchool] = []
@@ -26,13 +27,14 @@ class NYCListViewModel {
     
     init(nycSchoolService: NYCSchoolService = NYCSchoolService()) {
         self.nycSchoolService = nycSchoolService
-        self.currentOffset = self.limit
     }
     
     func getNYCSchools() async {
         if !allDataLoaded {
             do {
                 self.isLoading = true
+                
+                print("currentOffset: \(currentOffset)")
                 
                 let schools = try await nycSchoolService?.getNYCSchools(limit: limit, offset: currentOffset, sortKey: sortkey, sortOrder: sortOrder)
                 if let schools,
@@ -45,10 +47,14 @@ class NYCListViewModel {
 
                 getNYCSchoolsCompletionHandler?(nil)
                 isLoading = false
+                isDisplayingLoadingIndicator = false
             } catch {
                 isLoading = false
+                isDisplayingLoadingIndicator = false
                 getNYCSchoolsCompletionHandler?(error)
             }
+        } else {
+            isLoading = false
         }
     }
     
@@ -70,6 +76,13 @@ class NYCListViewModel {
         }
     }
     
+    func refreshSchools() async {
+        allDataLoaded = false
+        currentOffset = 0
+        nycSchools = []
+        await getNYCSchools()
+    }
+    
     func resetAndGetSchools(sortKey: NYCSchoolSortKey, sortOrder: SortOrder) async {
         allDataLoaded = false
         currentOffset = 0
@@ -77,6 +90,10 @@ class NYCListViewModel {
         self.sortkey = sortKey
         self.sortOrder = sortOrder
         await getNYCSchools()
+    }
+    
+    func resetSchools() {
+        nycSchools = []
     }
     
     /**

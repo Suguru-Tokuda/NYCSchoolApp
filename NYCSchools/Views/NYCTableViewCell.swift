@@ -39,6 +39,7 @@ class NYCTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.textColor = .systemBlue
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

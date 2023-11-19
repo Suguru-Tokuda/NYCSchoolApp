@@ -17,6 +17,12 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
         return controller
     }()
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        
+        return refreshControl
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +64,9 @@ extension NYCListViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
         self.tabBarController?.delegate = self
         view.addSubview(tableView)
         
@@ -65,9 +74,18 @@ extension NYCListViewController {
             if error == nil {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                    }
                 }
             } else {
                 self.showErrorAlert(error: error!)
+                DispatchQueue.main.async {
+                    if self.refreshControl.isRefreshing {
+                        self.refreshControl.endRefreshing()
+                    }
+                }
             }
         }
     }
@@ -119,6 +137,8 @@ extension NYCListViewController {
         
         sortVC?.sortOptionApply = { [weak self] value in
             Task {
+                self?.vm.resetSchools()
+                self?.tableView.reloadData()
                 await self?.vm.resetAndGetSchools(sortKey: value.0, sortOrder: value.1)
                 self?.scrollToTop()
             }
@@ -170,7 +190,23 @@ extension NYCListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row + 1 == vm.nycSchools.count {
             Task {
+                if !vm.isDisplayingLoadingIndicator && !vm.allDataLoaded {
+                    DispatchQueue.main.async {
+                        self.vm.isDisplayingLoadingIndicator = true
+                        self.vm.isLoading = true
+                        self.tableView.reloadData()
+                    }
+                }
+                
                 await vm.getNYCSchools()
+                
+                if vm.isDisplayingLoadingIndicator && !vm.isLoading {
+                    DispatchQueue.main.async {
+                        self.vm.isDisplayingLoadingIndicator = false
+                        self.vm.isLoading = false
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }
@@ -223,7 +259,23 @@ extension NYCListViewController: UITabBarControllerDelegate {
 
 extension NYCListViewController {
     private func scrollToTop() {
-        let topRow = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: topRow, at: .top, animated: false)
+        if !vm.nycSchools.isEmpty {
+            let topRow = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: topRow, at: .top, animated: false)
+        }
+    }
+}
+
+// MARK: Evnet handlers
+extension NYCListViewController {
+    @objc private func refreshData() {
+        Task {
+            DispatchQueue.main.async {
+                if !self.refreshControl.isRefreshing {
+                    self.refreshControl.beginRefreshing()
+                }
+            }
+            await vm.refreshSchools()
+        }
     }
 }
