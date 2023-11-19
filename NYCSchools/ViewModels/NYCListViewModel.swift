@@ -83,7 +83,8 @@ class NYCListViewModel {
         Search high schools names by text
      */
     func searchNYCSchools(searchText: String) {
-        self.filteredNycSchools = self.nycSchools.filter { $0.schoolName.lowercased().contains(searchText.lowercased()) }
+        // filter by school name or address
+        self.filteredNycSchools = self.nycSchools.filter { $0.schoolName.lowercased().contains(searchText.lowercased()) || $0.address.lowercased().contains(searchText.lowercased()) }
         self.delegate?.searchSchoolsCompleted()
     }
 }

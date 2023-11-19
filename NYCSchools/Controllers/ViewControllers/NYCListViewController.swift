@@ -13,7 +13,7 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
-        controller.searchBar.placeholder = "Search by school name..."
+        controller.searchBar.placeholder = "Search by school name and address"
         return controller
     }()
     
