@@ -91,19 +91,9 @@ extension NYCListViewController {
     }
     
     private func navigateToDetailsView(school: NYCSchool) {
-        Task {
-            let detailsVC = NYCSchoolDetailViewController()
-            detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
-                if error != nil {
-                    self?.showErrorAlert(error: error!)
-                }
-            }
-
-            if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
-                DispatchQueue.main.async {
-                    detailsVC.configure(school: school, scoreData: scoreData)
-                    self.navigationController?.pushViewController(detailsVC, animated: true)
-                }
+        DispatchQueue.main.async {
+            if let navCtrl = self.navigationController as? CustomNavigationController {
+                navCtrl.mainCoordinator?.goToDetailsCreen(school: school)
             }
         }
     }

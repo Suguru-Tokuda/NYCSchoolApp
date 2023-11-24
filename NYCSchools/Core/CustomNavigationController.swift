@@ -10,6 +10,7 @@ import UIKit
 class CustomNavigationController: UINavigationController {
     var isNewViewControllerBeingPushed: Bool = false
     var identifier: String = ""
+    weak var mainCoordinator: MainCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()

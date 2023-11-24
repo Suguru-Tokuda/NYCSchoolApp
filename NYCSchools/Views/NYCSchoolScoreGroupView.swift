@@ -64,10 +64,7 @@ extension NYCSchoolScoreGroupView {
             writingScoreView
         ]
         
-        let width = self.bounds.size.width / CGFloat(subviews.count)
-        
         subviews.forEach { subview in
-            subview.widthAnchor.constraint(equalToConstant: width).isActive = true
             stackView.addArrangedSubview(subview)
         }
     }
