@@ -16,14 +16,33 @@ class MainCoordinator: Coordinator {
         self.navigationController.pushViewController(tabBarController, animated: false)
     }
     
-    func goToDetailsCreen(school: NYCSchool) {
+    func goToDetailsView(school: NYCSchool, dataFetchErrorHandlder: ((Error?) -> ())? = nil, sheetCompletion: (() -> ())? = nil, sheetDismissed: (() -> ())? = nil) {
         let detailsVC = NYCSchoolDetailViewController()
+        
+        detailsVC.vm.getNYCScoreDataHandler = dataFetchErrorHandlder
+        detailsVC.sheetDismissed = sheetDismissed
 
         Task {
             if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
                 await detailsVC.configure(school: school, scoreData: scoreData)
                 DispatchQueue.main.async {
                     self.navigationController.pushViewController(detailsVC, animated: true)
+                }
+            }
+        }
+    }
+    
+    func presentNYCSchoolDetailsSheet(school: NYCSchool, dataFetchErrorHandlder: ((Error?) -> ())? = nil, sheetCompletion: (() -> ())? = nil, sheetDismissed: (() -> ())? = nil) {
+        let detailsVC = NYCSchoolDetailViewController(isSheet: true)
+        
+        detailsVC.vm.getNYCScoreDataHandler = dataFetchErrorHandlder
+        detailsVC.sheetDismissed = sheetDismissed
+
+        Task {
+            if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
+                await detailsVC.configure(school: school, scoreData: scoreData)
+                DispatchQueue.main.async {
+                    self.navigationController.present(detailsVC, animated: true, completion: sheetCompletion)
                 }
             }
         }

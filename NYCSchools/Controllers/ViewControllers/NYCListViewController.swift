@@ -93,7 +93,11 @@ extension NYCListViewController {
     private func navigateToDetailsView(school: NYCSchool) {
         DispatchQueue.main.async {
             if let navCtrl = self.navigationController as? CustomNavigationController {
-                navCtrl.mainCoordinator?.goToDetailsCreen(school: school)
+                navCtrl.mainCoordinator?.goToDetailsView(school: school, dataFetchErrorHandlder: { error in
+                    if let error {
+                        self.showErrorAlert(error: error)
+                    }
+                })
             }
         }
     }

@@ -38,32 +38,29 @@ class NYCSchoolMapViewController: UIViewController {
 
 extension NYCSchoolMapViewController {
     private func presentDetailsView(school: NYCSchool, mapView: MKMapView, annotation: MKAnnotation) {
-        Task {
-            let detailsVC = NYCSchoolDetailViewController(isSheet: true)
-            
-            detailsVC.sheetDismissed = {
-                mapView.deselectAnnotation(annotation, animated: true)
-            }
-            
-            detailsVC.vm.getNYCScoreDataHandler = { [weak self] error in
-                if error != nil {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error Fetching School Data", message: error?.localizedDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-                        self?.present(alert, animated: true)
+        if let navCtrl = self.navigationController as? CustomNavigationController {
+            navCtrl.mainCoordinator?.presentNYCSchoolDetailsSheet(
+                school: school,
+                dataFetchErrorHandlder: { error in
+                    if let error {
+                        self.showErrorAlert(error: error)
+                        mapView.deselectAnnotation(annotation, animated: true)
                     }
+                },
+                sheetDismissed: {
+                    mapView.deselectAnnotation(annotation, animated: true)
                 }
-            }
-            
-            if let scoreData = await detailsVC.vm.getNYCScoreData(id: school.id) {
-                DispatchQueue.main.async {
-                    detailsVC.configure(school: school, scoreData: scoreData, showMapView: false)
-                    self.present(detailsVC, animated: true)
-                }
-            }
+            )
         }
     }
-
+    
+    private func showErrorAlert(error: Error) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error Fetching School Data", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self.present(alert, animated: true)
+        }
+    }
 }
 
 extension NYCSchoolMapViewController {
