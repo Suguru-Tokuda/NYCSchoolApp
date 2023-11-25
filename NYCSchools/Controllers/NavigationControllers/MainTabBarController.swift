@@ -10,21 +10,6 @@ import UIKit
 class MainTabBarController: UITabBarController {
     weak var mainCoordinator: MainCoordinator?
     
-    init(mainCoordinator: MainCoordinator? = nil) {
-        super.init(nibName: "", bundle: nil)
-        self.mainCoordinator = mainCoordinator
-
-        self.viewControllers?.forEach { vc in
-            if let vc = vc as? CustomNavigationController {
-                vc.mainCoordinator = mainCoordinator
-            }
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -47,5 +32,14 @@ class MainTabBarController: UITabBarController {
         tabBar.backgroundColor = .systemBackground
         
         setViewControllers([vc1, vc2], animated: false)
+    }
+    
+    func setCoordinator(mainCoordinator: MainCoordinator) {
+        self.mainCoordinator = mainCoordinator
+        self.viewControllers?.forEach { vc in
+            if let vc = vc as? CustomNavigationController {
+                vc.mainCoordinator = mainCoordinator
+            }
+        }
     }
 }

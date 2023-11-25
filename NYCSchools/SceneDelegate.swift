@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         mainCoordinator = MainCoordinator()
         mainCoordinator?.startCoordinator()
         window?.rootViewController = mainCoordinator?.navigationController
-//        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
     }
 

@@ -12,7 +12,8 @@ class MainCoordinator: Coordinator {
     var navigationController: UINavigationController = UINavigationController()
     
     func startCoordinator() {
-        let tabBarController = MainTabBarController(mainCoordinator: self)
+        let tabBarController = MainTabBarController()
+        tabBarController.setCoordinator(mainCoordinator: self)
         self.navigationController.pushViewController(tabBarController, animated: false)
     }
     
