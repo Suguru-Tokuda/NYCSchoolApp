@@ -48,4 +48,11 @@ class MainCoordinator: Coordinator {
             }
         }
     }
+    
+    func goToFilterScreen(sortKey: NYCSchoolSortKey, sortOrder: SortOrder, sortOptionApply: @escaping (((NYCSchoolSortKey, SortOrder)) -> ())) {
+        let sortVC = SortViewController()
+        sortVC.configure(sortKey: sortKey, sortOrder: sortOrder)
+        sortVC.sortOptionApply = sortOptionApply
+        navigationController.pushViewController(sortVC, animated: true)
+    }
 }

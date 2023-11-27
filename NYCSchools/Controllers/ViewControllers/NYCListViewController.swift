@@ -125,17 +125,15 @@ extension NYCListViewController {
     }
     
     @objc private func filterBtnTap() {
-        sortVC = SortViewController()
-        sortVC?.configure(sortKey: vm.sortkey, sortOrder: vm.sortOrder)
-        navigationController?.pushViewController(sortVC!, animated: true)
-        
-        sortVC?.sortOptionApply = { [weak self] value in
-            Task {
-                self?.vm.resetSchools()
-                self?.tableView.reloadData()
-                await self?.vm.resetAndGetSchools(sortKey: value.0, sortOrder: value.1)
-                self?.scrollToTop()
-            }
+        if let navCtrl = self.navigationController as? CustomNavigationController {
+            navCtrl.mainCoordinator?.goToFilterScreen(sortKey: vm.sortkey, sortOrder: vm.sortOrder, sortOptionApply: { [weak self] value in
+                    Task {
+                        self?.vm.resetSchools()
+                        self?.tableView.reloadData()
+                        await self?.vm.resetAndGetSchools(sortKey: value.0, sortOrder: value.1)
+                        self?.scrollToTop()
+                    }
+            })
         }
     }
 }
