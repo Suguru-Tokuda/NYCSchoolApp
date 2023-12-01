@@ -26,6 +26,7 @@ class NYCSchoolTableLoadingViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
