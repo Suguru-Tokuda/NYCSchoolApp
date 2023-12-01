@@ -131,6 +131,7 @@ extension NYCTableViewCell {
         
         let addressLabelConstraints = [
             addressLabel.topAnchor.constraint(equalTo: schoolNameLabel.bottomAnchor, constant: 5),
+            addressLabel.leadingAnchor.constraint(equalTo: namesGroupView.leadingAnchor),
             addressLabel.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor)
         ]
         
