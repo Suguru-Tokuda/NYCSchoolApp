@@ -12,7 +12,7 @@ protocol NetworkProtocol {
 }
 
 class NetworkManager: NetworkProtocol {
-    func getData<T>(urlStr: String, type: T.Type) async throws -> T where T : Decodable {
+    func getData<T: Decodable>(urlStr: String, type: T.Type) async throws -> T {
         guard let url = URL(string: urlStr) else { throw NetworkError.badUrlError }
         var rawData: Data
 
