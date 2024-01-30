@@ -8,7 +8,7 @@
 import UIKit
 
 class HoursView: UIView {
-    private lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -18,7 +18,7 @@ class HoursView: UIView {
         return label
     }()
     
-    private lazy var hoursLabel: UILabel = {
+    private var hoursLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

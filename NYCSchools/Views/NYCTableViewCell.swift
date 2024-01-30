@@ -10,7 +10,7 @@ import UIKit
 class NYCTableViewCell: UITableViewCell {
     static let identifier = "NYCTableViewCell"
     
-    private lazy var schoolNameLabel: UILabel = {
+    private var schoolNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -19,7 +19,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var addressLabel: UILabel = {
+    private var addressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -28,13 +28,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var namesGroupView: UIView = {
+    private var namesGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var rateText: UILabel = {
+    private var rateText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.lineBreakMode = .byWordWrapping
@@ -44,7 +44,7 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var rateTextLabel: UILabel = {
+    private var rateTextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
         label.lineBreakMode = .byWordWrapping
@@ -54,13 +54,13 @@ class NYCTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var collegeCareerRateGroupView: UIView = {
+    private var collegeCareerRateGroupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var labelStackView: UIStackView = {
+    private var labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalCentering
@@ -76,14 +76,6 @@ class NYCTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 }
 
 extension NYCTableViewCell {
@@ -98,7 +90,6 @@ extension NYCTableViewCell {
         
         labelStackView.addArrangedSubview(namesGroupView)
         labelStackView.addArrangedSubview(collegeCareerRateGroupView)
-        
         
         applyConstraints()
     }

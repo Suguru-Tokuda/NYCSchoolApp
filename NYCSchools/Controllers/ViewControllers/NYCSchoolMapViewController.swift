@@ -12,7 +12,7 @@ class NYCSchoolMapViewController: UIViewController {
     var listVM: NYCListViewModel! = NYCListViewModel()
     var mapVM: NYCSchoolDetailViewModel! = NYCSchoolDetailViewModel()
     
-    private lazy var mapView: MKMapView = {
+    private var mapView: MKMapView = {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.overrideUserInterfaceStyle = .dark

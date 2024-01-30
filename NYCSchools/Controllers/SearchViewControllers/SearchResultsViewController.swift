@@ -15,7 +15,7 @@ class SearchResultsViewController: UIViewController {
     var vm: NYCListViewModel = NYCListViewModel()
     weak var delegate: SearchResultsViewControllerDelegate?
 
-    lazy var tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(NYCTableViewCell.self, forCellReuseIdentifier: NYCTableViewCell.identifier)

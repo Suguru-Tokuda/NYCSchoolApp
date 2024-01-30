@@ -12,7 +12,12 @@ class NYCSchoolDetailViewModel {
     var school: NYCSchool?
     var scoreData: NYCSchoolScorreData?
     var service: NYCSchoolService
-    var coordinate: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: initialCoordinate.latitude, longitude: initialCoordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    var coordinate: MKCoordinateRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(
+            latitude: initialCoordinate.latitude,
+            longitude: initialCoordinate.longitude),
+            span: MKCoordinateSpan(latitudeDelta: 0.1,
+                                   longitudeDelta: 0.1))
     var coordiateSetHandlder: ((NYCSchool) -> ())?
     var getNYCScoreDataHandler: ((Error?) -> ())?
     

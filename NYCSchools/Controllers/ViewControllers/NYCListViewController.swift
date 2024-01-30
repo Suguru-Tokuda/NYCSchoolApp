@@ -11,24 +11,25 @@ class NYCListViewController: UIViewController, UISearchControllerDelegate {
     var vm: NYCListViewModel! = NYCListViewModel()
     var sortVC: SortViewController?
     
-    private lazy var searchController: UISearchController = {
+    private var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
         controller.searchBar.placeholder = "Search by school name and address"
         return controller
     }()
     
-    private lazy var refreshControl: UIRefreshControl = {
+    private var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         
         return refreshControl
     }()
     
-    private lazy var tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         // register cells
         tableView.register(NYCTableViewCell.self, forCellReuseIdentifier: NYCTableViewCell.identifier)
-        tableView.register(NYCSchoolTableLoadingViewCell.self, forCellReuseIdentifier: NYCSchoolTableLoadingViewCell.identifier)
+        tableView.register(NYCSchoolTableLoadingViewCell.self, 
+                           forCellReuseIdentifier: NYCSchoolTableLoadingViewCell.identifier)
         return tableView
     }()
     

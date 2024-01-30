@@ -8,7 +8,7 @@
 import UIKit
 
 class TitleBulletPointsView: UIView {
-    private lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -17,7 +17,7 @@ class TitleBulletPointsView: UIView {
         return label
     }()
     
-    private lazy var listStackView: UIStackView = {
+    private var listStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false

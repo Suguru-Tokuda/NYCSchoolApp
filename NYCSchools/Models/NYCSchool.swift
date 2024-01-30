@@ -135,8 +135,8 @@ struct NYCSchool: Decodable, Identifiable {
         }
         
         // parse dictionary
-        func parseDictionary(container: KeyedDecodingContainer<NYCSchool.DynamicCodignKeys>, propertyName: String, separator: String) -> [Int : [String]] {
-            var res: [Int : [String]] = [:]
+        func parseDictionary(container: KeyedDecodingContainer<NYCSchool.DynamicCodignKeys>, propertyName: String, separator: String) -> [Int: [String]] {
+            var res: [Int: [String]] = [:]
             
             var parseFailed = false
             var outerCounter = 1

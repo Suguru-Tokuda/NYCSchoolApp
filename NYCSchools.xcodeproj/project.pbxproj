@@ -166,6 +166,7 @@
 			children = (
 				BB5834682AFEBDDA005014C9 /* NYCSchools */,
 				BB5834672AFEBDDA005014C9 /* Products */,
+				BBCBB63A2B4C84340065EC31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -281,6 +282,13 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		BBCBB63A2B4C84340065EC31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -288,6 +296,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB58347A2AFEBDDB005014C9 /* Build configuration list for PBXNativeTarget "NYCSchools" */;
 			buildPhases = (
+				BBCBB6392B4C80330065EC31 /* SwiftLint */,
 				BB5834622AFEBDDA005014C9 /* Sources */,
 				BB5834632AFEBDDA005014C9 /* Frameworks */,
 				BB5834642AFEBDDA005014C9 /* Resources */,
@@ -295,8 +304,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				BBCBB6402B4C87EE0065EC31 /* PBXTargetDependency */,
 			);
 			name = NYCSchools;
+			packageProductDependencies = (
+			);
 			productName = NYCSchools;
 			productReference = BB5834662AFEBDDA005014C9 /* NYCSchools.app */;
 			productType = "com.apple.product-type.application";
@@ -325,6 +337,9 @@
 				Base,
 			);
 			mainGroup = BB58345D2AFEBDDA005014C9;
+			packageReferences = (
+				BBCBB6342B4C80180065EC31 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = BB5834672AFEBDDA005014C9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -345,6 +360,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BBCBB6392B4C80330065EC31 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB5834622AFEBDDA005014C9 /* Sources */ = {
@@ -393,6 +429,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBCBB6402B4C87EE0065EC31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = BBCBB63F2B4C87EE0065EC31 /* SwiftLintPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BB5834742AFEBDDB005014C9 /* LaunchScreen.storyboard */ = {
@@ -533,6 +576,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FVEGF5DQ7U;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NYCSchools/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -559,6 +603,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FVEGF5DQ7U;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NYCSchools/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -599,6 +644,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BBCBB6342B4C80180065EC31 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BBCBB63F2B4C87EE0065EC31 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BBCBB6342B4C80180065EC31 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BB58345E2AFEBDDA005014C9 /* Project object */;
 }

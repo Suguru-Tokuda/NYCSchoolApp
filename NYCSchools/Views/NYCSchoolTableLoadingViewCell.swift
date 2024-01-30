@@ -10,7 +10,7 @@ import UIKit
 class NYCSchoolTableLoadingViewCell: UITableViewCell {
     static let identifier = "NYCSchoolTableLoadingViewCell"
     
-    private lazy var spinner: UIActivityIndicatorView = {
+    private var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.hidesWhenStopped = true
@@ -25,14 +25,6 @@ class NYCSchoolTableLoadingViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }
 

@@ -11,7 +11,7 @@ class SortOrderView: UIView {
     private var selectedOption: SortOrder = .asc
     var selectionChange: ((SortOrder) -> ())?
     
-    private lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +19,7 @@ class SortOrderView: UIView {
         return label
     }()
 
-    private lazy var ascBtn: UIButton = {
+    private var ascBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(SortOrder.asc.rawValue, for: .normal)
@@ -35,7 +35,7 @@ class SortOrderView: UIView {
         return btn
     }()
     
-    private lazy var dscBtn: UIButton = {
+    private var dscBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(SortOrder.dsc.rawValue, for: .normal)

@@ -10,7 +10,7 @@ import WebKit
 
 class WebViewController: UIViewController {
     var urlStr: String = ""
-    private lazy var webView: WKWebView = {
+    private var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView

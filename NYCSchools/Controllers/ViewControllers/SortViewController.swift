@@ -11,20 +11,20 @@ class SortViewController: UIViewController {
     var vm: NYCSchoolSortViewModel! = NYCSchoolSortViewModel()
     var sortOptionApply: (((NYCSchoolSortKey, SortOrder)) -> ())?
     
-    private lazy var scrollView: UIScrollView! = {
+    private var scrollView: UIScrollView! = {
         var scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delaysContentTouches = false
         return scrollView
     }()
     
-    private lazy var contentView: UIView = {
+    private var contentView: UIView = {
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -33,18 +33,18 @@ class SortViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var sortOrderOptionView: SortOrderView! = {
+    private var sortOrderOptionView: SortOrderView! = {
         let view = SortOrderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var filterByView: FilterByView! = {
+    private var filterByView: FilterByView! = {
         let view = FilterByView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()

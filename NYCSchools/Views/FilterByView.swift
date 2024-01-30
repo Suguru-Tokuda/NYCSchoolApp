@@ -9,10 +9,10 @@ import UIKit
 
 class FilterByView: UIView {
     private var selectedOption: NYCSchoolSortKey = .graduationRate
-    private var keyOptionDict: [NYCSchoolSortKey : UIButton] = [:]
+    private var keyOptionDict: [NYCSchoolSortKey: UIButton] = [:]
     var selectionChange: ((NYCSchoolSortKey) -> ())?
     
-    private lazy var titleLabel: UILabel! = {
+    private var titleLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -20,7 +20,7 @@ class FilterByView: UIView {
         return label
     }()
     
-    private lazy var stackView: UIStackView! = {
+    private var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
